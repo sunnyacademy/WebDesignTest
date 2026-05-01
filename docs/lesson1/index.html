@@ -1,463 +1,416 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ウェブデザイン技能検定3級 第1回 v5</title>
-  <style>
-    :root {
-      --bg: #fffaf3;
-      --paper: #ffffff;
-      --ink: #263238;
-      --muted: #64748b;
-      --line: #f0d9bd;
-      --accent: #f59e0b;
-      --accent-dark: #c2410c;
-      --ok: #15803d;
-      --warn: #b45309;
-      --code-bg: #0f172a;
-      --code-ink: #e5e7eb;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
-      line-height: 1.75;
-      color: var(--ink);
-      background: linear-gradient(180deg, #fff7ed 0%, var(--bg) 100%);
-    }
-    .layout {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 24px;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    aside {
-      position: sticky;
-      top: 16px;
-      align-self: start;
-      background: rgba(255,255,255,.92);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 10px 30px rgba(180, 83, 9, .08);
-      max-height: calc(100vh - 32px);
-      overflow: auto;
-    }
-    aside h2 {
-      font-size: 18px;
-      margin: 0 0 12px;
-      color: var(--accent-dark);
-    }
-    aside a {
-      display: block;
-      padding: 7px 9px;
-      color: var(--ink);
-      text-decoration: none;
-      border-radius: 10px;
-      font-size: 14px;
-    }
-    aside a:hover {
-      background: #fff7ed;
-      color: var(--accent-dark);
-    }
-    main {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 36px;
-      box-shadow: 0 18px 45px rgba(180, 83, 9, .10);
-    }
-    h1 {
-      font-size: 30px;
-      line-height: 1.35;
-      margin: 0 0 18px;
-      padding-bottom: 12px;
-      border-bottom: 4px solid #fed7aa;
-      color: #1f2937;
-    }
-    h2 {
-      font-size: 24px;
-      margin-top: 42px;
-      padding: 10px 14px;
-      background: #fff7ed;
-      border-left: 8px solid var(--accent);
-      border-radius: 12px;
-    }
-    h3 {
-      font-size: 20px;
-      margin-top: 34px;
-      color: var(--accent-dark);
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 8px;
-    }
-    h4, h5, h6 {
-      margin-top: 24px;
-    }
-    p {
-      margin: 8px 0;
-    }
-    hr {
-      border: 0;
-      border-top: 1px solid var(--line);
-      margin: 28px 0;
-    }
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      background: #fff7ed;
-      color: #9a3412;
-      padding: .08em .35em;
-      border-radius: 6px;
-      font-size: .95em;
-    }
-    .code-block {
-      background: var(--code-bg);
-      color: var(--code-ink);
-      border-radius: 14px;
-      padding: 16px;
-      overflow-x: auto;
-      border: 1px solid #1e293b;
-      margin: 10px 0 14px;
-    }
-    .code-block code {
-      background: transparent;
-      color: inherit;
-      padding: 0;
-      border-radius: 0;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .choice-line {
-      padding: 8px 12px;
-      margin: 6px 0;
-      border: 1px solid #fde7c7;
-      background: #fffdf8;
-      border-radius: 10px;
-    }
-    .answer {
-      margin: 14px 0;
-      padding: 12px 14px;
-      border-left: 6px solid var(--ok);
-      background: #f0fdf4;
-      border-radius: 10px;
-      font-weight: 700;
-      color: #166534;
-    }
-    .label {
-      margin-top: 14px;
-      font-weight: 800;
-      color: var(--accent-dark);
-    }
-    .label.caution {
-      color: var(--warn);
-    }
-    .label.point {
-      color: #0369a1;
-    }
-    ul {
-      padding-left: 1.4em;
-    }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 12px 0 28px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      border-radius: 999px;
-      color: var(--accent-dark);
-      font-size: 13px;
-      font-weight: 700;
-    }
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-        padding: 12px;
-      }
-      aside {
-        position: static;
-        max-height: none;
-      }
-      main {
-        padding: 20px;
-      }
-    }
-    @media print {
-      aside { display: none; }
-      body { background: white; }
-      .layout { display: block; max-width: none; padding: 0; }
-      main { box-shadow: none; border: 0; }
-      h2 { break-after: avoid; }
-      .code-block { white-space: pre-wrap; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ウェブデザイン技能検定3級 第1回</title>
+<style>
+:root{--bg:#fffaf3;--paper:#fff;--ink:#263238;--line:#f0d9bd;--accent:#f59e0b;--accent-dark:#c2410c;--ok:#15803d;--ng:#dc2626;--warn:#b45309;--code-bg:#0f172a;--code-ink:#e5e7eb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP",sans-serif;line-height:1.7;color:var(--ink);background:linear-gradient(180deg,#fff7ed 0%,var(--bg) 100%);}
+.wrap{max-width:980px;margin:0 auto;padding:16px;}
+header{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(180,83,9,.08);position:sticky;top:8px;z-index:5;}
+h1{font-size:24px;margin:0 0 12px;color:#1f2937;}
+.menu-toggle{display:none;border:0;background:#334155;color:white;border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer;margin:6px 0 10px;width:100%;}
+.sections{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;}
+.section-btn{border:1px solid #fed7aa;background:#fff;color:var(--accent-dark);border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer;}
+.section-btn.active{background:var(--accent);color:white;border-color:var(--accent);}
+.status{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;}
+.status-box{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:6px 10px;font-weight:800;color:var(--accent-dark);}
+.nav{display:flex;gap:8px;}
+.nav button,.bottom-nav button{border:0;border-radius:999px;background:#334155;color:white;padding:10px 15px;font-weight:900;cursor:pointer;min-height:44px;}
+.nav button.primary,.bottom-nav button.primary{background:var(--accent);}
+.nav button:disabled,.bottom-nav button:disabled{opacity:.35;cursor:not-allowed;}
+.card{display:none;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 15px 40px rgba(180,83,9,.08);}
+.card.active{display:block;}
+.card-head{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+.pill{display:inline-block;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;color:var(--accent-dark);font-weight:800;padding:5px 10px;}
+.qid{font-weight:900;color:#334155;}
+.card p{font-size:18px;margin:10px 0;}
+.subhead,.label{font-weight:900;color:var(--accent-dark);margin-top:14px;}
+.label.caution{color:var(--warn);}.label.point{color:#0369a1;}
+.choices{display:grid;gap:10px;margin:18px 0;}
+.choice{text-align:left;border:1px solid #fde7c7;background:#fffdf8;border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.6;cursor:pointer;}
+.choice:hover{border-color:var(--accent);background:#fff7ed;}
+.choice.selected{border-color:#334155;box-shadow:0 0 0 2px rgba(51,65,85,.15);}
+.choice.correct{border-color:var(--ok);background:#f0fdf4;}.choice.wrong{border-color:var(--ng);background:#fef2f2;}
+.code-block{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:14px;overflow-x:auto;border:1px solid #1e293b;margin:10px 0;}
+.code-block code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:15px;line-height:1.6;}
+.answer-detail{margin-top:16px;border:1px solid #bbf7d0;border-radius:14px;overflow:hidden;background:#f0fdf4;}
+.answer-detail summary{cursor:pointer;padding:12px 14px;font-weight:900;color:#166534;list-style:none;}
+.answer-detail summary::-webkit-details-marker{display:none;}.answer-detail summary::before{content:"＋";display:inline-block;width:1.4em;}.answer-detail[open] summary::before{content:"−";}
+.answer-body{border-top:1px solid #bbf7d0;background:white;padding:14px;}
+.answer{padding:10px 12px;border-left:6px solid var(--ok);background:#f0fdf4;border-radius:10px;font-weight:800;color:#166534;}
+.practice-input{width:100%;min-height:180px;border:1px solid #1e293b;border-radius:14px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:15px;line-height:1.6;background:#0f172a;color:#e5e7eb;}
+.practice-input::placeholder{color:#94a3b8;}
+.bottom-nav{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid #f0d9bd;}
+.bottom-nav button{flex:1;font-size:16px;}
+.footer-note{text-align:center;color:#64748b;padding:20px;}
+@media(max-width:700px){
+.wrap{padding:10px}header{position:static;padding:14px}h1{font-size:21px;line-height:1.35}
+.menu-toggle{display:block}
+.sections{display:none;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+.sections.open{display:grid}
+.section-btn{font-size:14px;padding:9px 10px}
+.status{display:block}.status-box{gap:6px}.badge{font-size:13px;padding:6px 9px}
+.nav{display:none}
+.card{padding:16px;margin-top:12px;border-radius:16px}.card p{font-size:17px;line-height:1.75}
+.choice{font-size:16px;padding:12px;min-height:48px}.answer-detail summary{font-size:16px;padding:13px}.answer-body{font-size:16px;line-height:1.8}
+.code-block{padding:10px}.code-block code{font-size:13px}.practice-input{font-size:16px;min-height:190px}
+.bottom-nav{position:sticky;bottom:0;background:#fff;padding:12px 0 6px;margin-left:-2px;margin-right:-2px;z-index:4}
+.bottom-nav button{font-size:16px;min-height:48px}
+}
+</style>
 </head>
 <body>
-  <div class="layout">
-    <aside>
-      <h2>目次</h2>
-      <a href="#main-questions">本問 20問</a>
-      <a href="#practice">実技 3問</a>
-      <a href="#knowledge">知識 5問</a>
-      <a href="#review">復習 5問</a>
-      <a href="#advanced">応用 5問</a>
-      <a href="#homework">宿題</a>
-      <hr>
-      <a href="#q01">Q01へ</a>
-      <a href="#q12">Q12 入れ子構造</a>
-      <a href="#q17">Q17 パス</a>
-    </aside>
-    <main>
-      <div class="meta">
-        <span class="badge">HTML版 v1</span>
-        <span class="badge">元MD: wd3_lesson1_v5.md</span>
-        <span class="badge">用途: レビュー・配布前確認</span>
-      </div>
-      <h1>ウェブデザイン技能検定3級 第1回 v5</h1>
-<h2>テーマ</h2>
-<p>HTML基礎・構造・リンク・画像・パス</p>
-<h2>正式構成</h2>
-<h3>＜授業分＞</h3>
-<ul>
-<li>本問 20問</li>
-<li>実技 3問</li>
-<li>知識 5問</li>
-<li>復習 5問</li>
-<li>応用 5問</li>
-</ul>
-<h3 id="homework">＜宿題＞</h3>
-<ul>
-<li>① 復習（授業問題10問）</li>
-<li>② アレンジ問題（5問）</li>
-<li>③ 知識問題（5問）</li>
-</ul>
-<hr>
-<h1>＜授業分＞</h1>
-<hr>
-<h1 id="main-questions">■ 本問 20問</h1>
-<hr>
-<h2 id="q01">Q01</h2>
+<div class="wrap">
+<header>
+<h1>ウェブデザイン技能検定3級 第1回</h1>
+<button type="button" class="menu-toggle" id="menuToggle">セクション選択を開く</button>
+<div class="sections" id="sections">
+<button type="button" class="section-btn" data-section="本問">本問 <span>20</span></button>
+<button type="button" class="section-btn" data-section="実技">実技 <span>3</span></button>
+<button type="button" class="section-btn" data-section="知識">知識 <span>5</span></button>
+<button type="button" class="section-btn" data-section="復習">復習 <span>5</span></button>
+<button type="button" class="section-btn" data-section="応用">応用 <span>5</span></button>
+<button type="button" class="section-btn" data-section="宿題 復習">宿題 復習 <span>10</span></button>
+<button type="button" class="section-btn" data-section="宿題 アレンジ">宿題 アレンジ <span>5</span></button>
+<button type="button" class="section-btn" data-section="宿題 知識">宿題 知識 <span>5</span></button>
+</div>
+<div class="status">
+<div class="status-box">
+<span class="badge" id="currentSection">本問</span>
+<span class="badge" id="progress">1/20</span>
+<span class="badge" id="remaining">残り 19問</span>
+<span class="badge" id="score">正答数 0/20</span>
+</div>
+<div class="nav">
+<button type="button" id="prevBtn">前へ</button>
+<button type="button" id="nextBtn" class="primary">次へ</button>
+</div>
+</div>
+</header>
+<main id="cards"><article class="card" data-index="0" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q01</span></div>
 <p>HTMLの役割として最も適切なものはどれか</p>
-<div class="choice-line">【A】 Webページの見た目を整える</div>
-<div class="choice-line">【B】 Webページの構造を定義する</div>
-<div class="choice-line">【C】 Webページに動きをつける</div>
-<div class="choice-line">【D】 Webページのデータを保存する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Webページの見た目を整える</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Webページの構造を定義する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> Webページに動きをつける</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> Webページのデータを保存する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 Webページの構造を定義する</div>
 <div class="label">解説</div>
 <p>HTML（HyperText Markup Language）は、見出し・段落・画像・リンクなど、Webページの構造を表すための言語です。見た目はCSS、動きはJavaScriptが担当します。</p>
 <div class="label caution">よくあるミス</div>
 <p>「画面に見えるものを作る」という印象から、見た目を担当するCSSと混同して【A】を選んでしまう。</p>
 <div class="label point">ポイント</div>
-<p>HTML = 構造</p>
-<p>CSS = 見た目</p>
-<p>JavaScript = 動き</p>
-<hr>
-<h2 id="q02">Q02</h2>
+<p>HTML = 構造</p><p>CSS = 見た目</p><p>JavaScript = 動き</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="1" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q02</span></div>
 <p>HTMLタグの書き方として正しいものはどれか</p>
-<div class="choice-line">【A】 <code>(p)</code></div>
-<div class="choice-line">【B】 <code>{p}</code></div>
-<div class="choice-line">【C】 <code>&lt;p&gt;</code></div>
-<div class="choice-line">【D】 <code>[p]</code></div>
-<div class="answer">⭕ 正解【C】 <code>&lt;p&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `(p)`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `{p}`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;p&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `[p]`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 `&lt;p&gt;`</div>
 <div class="label">解説</div>
-<p>HTMLタグは <code>&lt;</code> と <code>&gt;</code> で囲んで書きます。たとえば段落は <code>&lt;p&gt;</code>、画像は <code>&lt;img&gt;</code> のように書きます。</p>
+<p>HTMLタグは `&lt;` と `&gt;` で囲んで書きます。たとえば段落は `&lt;p&gt;`、画像は `&lt;img&gt;` のように書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p>プログラミングで使う <code>()</code> や <code>{}</code> と混同してしまう。</p>
+<p>プログラミングで使う `()` や `{}` と混同してしまう。</p>
 <div class="label point">ポイント</div>
-<p>HTMLタグは <code>&lt; &gt;</code> で囲む</p>
-<hr>
-<h2 id="q03">Q03</h2>
+<p>HTMLタグは `&lt; &gt;` で囲む</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="2" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q03</span></div>
 <p>HTMLの基本構造として正しい順番はどれか</p>
-<div class="choice-line">【A】 <code>html → body → head</code></div>
-<div class="choice-line">【B】 <code>html → head → body</code></div>
-<div class="choice-line">【C】 <code>body → html → head</code></div>
-<div class="choice-line">【D】 <code>head → body → html</code></div>
-<div class="answer">⭕ 正解【B】 <code>html → head → body</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `html → body → head`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `html → head → body`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `body → html → head`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `head → body → html`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【B】 `html → head → body`</div>
 <div class="label">解説</div>
-<p>HTML文書は、全体を <code>&lt;html&gt;</code> で囲み、その中にページ情報を書く <code>&lt;head&gt;</code> と、画面に表示される内容を書く <code>&lt;body&gt;</code> を置きます。</p>
+<p>HTML文書は、全体を `&lt;html&gt;` で囲み、その中にページ情報を書く `&lt;head&gt;` と、画面に表示される内容を書く `&lt;body&gt;` を置きます。</p>
 <div class="label caution">よくあるミス</div>
 <p>画面に見えるbodyを先に書きたくなり、headとbodyの順番を逆にしてしまう。</p>
 <div class="label point">ポイント</div>
-<p><code>html</code> の中に <code>head</code> と <code>body</code></p>
-<hr>
-<h2 id="q04">Q04</h2>
+<p>`html` の中に `head` と `body`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="3" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q04</span></div>
 <p>ページの大きな見出しとして最も適切なタグはどれか</p>
-<div class="choice-line">【A】 <code>&lt;p&gt;</code></div>
-<div class="choice-line">【B】 <code>&lt;div&gt;</code></div>
-<div class="choice-line">【C】 <code>&lt;span&gt;</code></div>
-<div class="choice-line">【D】 <code>&lt;h1&gt;</code></div>
-<div class="answer">⭕ 正解【D】 <code>&lt;h1&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `&lt;p&gt;`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `&lt;div&gt;`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;span&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `&lt;h1&gt;`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 `&lt;h1&gt;`</div>
 <div class="label">解説</div>
-<p><code>&lt;h1&gt;</code> はページ内の最も大きな見出しを表すタグです。<code>&lt;p&gt;</code> は段落、<code>&lt;div&gt;</code> はまとまり、<code>&lt;span&gt;</code> は文章の一部を表します。</p>
+<p>`&lt;h1&gt;` はページ内の最も大きな見出しを表すタグです。`&lt;p&gt;` は段落、`&lt;div&gt;` はまとまり、`&lt;span&gt;` は文章の一部を表します。</p>
 <div class="label caution">よくあるミス</div>
-<p>文字が表示されれば何でもよいと思い、<code>&lt;p&gt;</code> や <code>&lt;div&gt;</code> を選んでしまう。</p>
+<p>文字が表示されれば何でもよいと思い、`&lt;p&gt;` や `&lt;div&gt;` を選んでしまう。</p>
 <div class="label point">ポイント</div>
-<p><code>h1</code> = 大見出し</p>
-<hr>
-<h2 id="q05">Q05</h2>
+<p>`h1` = 大見出し</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="4" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q05</span></div>
 <p>段落を表すタグはどれか</p>
-<div class="choice-line">【A】 <code>&lt;p&gt;</code></div>
-<div class="choice-line">【B】 <code>&lt;br&gt;</code></div>
-<div class="choice-line">【C】 <code>&lt;h1&gt;</code></div>
-<div class="choice-line">【D】 <code>&lt;div&gt;</code></div>
-<div class="answer">⭕ 正解【A】 <code>&lt;p&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `&lt;p&gt;`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `&lt;br&gt;`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;h1&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `&lt;div&gt;`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【A】 `&lt;p&gt;`</div>
 <div class="label">解説</div>
-<p><code>&lt;p&gt;</code> はparagraph（段落）の意味です。文章のまとまりを表すときに使います。</p>
+<p>`&lt;p&gt;` はparagraph（段落）の意味です。文章のまとまりを表すときに使います。</p>
 <div class="label caution">よくあるミス</div>
-<p>改行のように見えるため、<code>&lt;br&gt;</code> と混同する。</p>
+<p>改行のように見えるため、`&lt;br&gt;` と混同する。</p>
 <div class="label point">ポイント</div>
-<p><code>p</code> = 段落</p>
-<p><code>br</code> = 改行</p>
-<hr>
-<h2 id="q06">Q06</h2>
+<p>`p` = 段落</p><p>`br` = 改行</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="5" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q06</span></div>
 <p>HTMLで改行を表すタグはどれか</p>
-<div class="choice-line">【A】 <code>&lt;p&gt;</code></div>
-<div class="choice-line">【B】 <code>&lt;br&gt;</code></div>
-<div class="choice-line">【C】 <code>&lt;hr&gt;</code></div>
-<div class="choice-line">【D】 <code>&lt;div&gt;</code></div>
-<div class="answer">⭕ 正解【B】 <code>&lt;br&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `&lt;p&gt;`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `&lt;br&gt;`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;hr&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `&lt;div&gt;`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【B】 `&lt;br&gt;`</div>
 <div class="label">解説</div>
-<p><code>&lt;br&gt;</code> は文章の途中で改行を入れるためのタグです。<code>&lt;p&gt;</code> は段落、<code>&lt;hr&gt;</code> は区切り線、<code>&lt;div&gt;</code> はまとまりを表します。</p>
+<p>`&lt;br&gt;` は文章の途中で改行を入れるためのタグです。`&lt;p&gt;` は段落、`&lt;hr&gt;` は区切り線、`&lt;div&gt;` はまとまりを表します。</p>
 <div class="label caution">よくあるミス</div>
 <p>段落の切り替えと改行を同じものとして考えてしまう。</p>
 <div class="label point">ポイント</div>
-<p><code>br</code> = line break（改行）</p>
-<hr>
-<h2 id="q07">Q07</h2>
+<p>`br` = line break（改行）</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="6" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q07</span></div>
 <p>画像を表示するタグはどれか</p>
-<div class="choice-line">【A】 <code>&lt;image&gt;</code></div>
-<div class="choice-line">【B】 <code>&lt;picture&gt;</code></div>
-<div class="choice-line">【C】 <code>&lt;img&gt;</code></div>
-<div class="choice-line">【D】 <code>src</code></div>
-<div class="answer">⭕ 正解【C】 <code>&lt;img&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `&lt;image&gt;`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `&lt;picture&gt;`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;img&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `&lt;src&gt;`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 `&lt;img&gt;`</div>
 <div class="label">解説</div>
-<p>画像を表示する基本のタグは <code>&lt;img&gt;</code> です。<code>src</code> は画像の場所を指定する属性であり、タグではありません。<code>&lt;picture&gt;</code> はレスポンシブ画像などで使われますが、3級の基本ではまず <code>&lt;img&gt;</code> を押さえます。</p>
+<p>画像を表示する基本のタグは `&lt;img&gt;` です。`src` は画像の場所を指定する属性であり、タグではありません。`&lt;picture&gt;` はレスポンシブ画像などで使われますが、3級の基本ではまず `&lt;img&gt;` を押さえます。</p>
 <div class="label caution">よくあるミス</div>
-<p>英単語として分かりやすい <code>&lt;image&gt;</code> を選んでしまう。</p>
+<p>英単語として分かりやすい `&lt;image&gt;` を選んでしまう。また、`src` はタグではなく属性である点を混同しやすい。</p>
 <div class="label point">ポイント</div>
-<p>画像タグ = <code>&lt;img&gt;</code></p>
-<hr>
-<h2 id="q08">Q08</h2>
+<p>画像タグ = `&lt;img&gt;`</p><p>画像の場所 = `src` 属性</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="7" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q08</span></div>
 <p>imgタグで画像ファイルの場所を指定する属性はどれか</p>
-<div class="choice-line">【A】 <code>href</code></div>
-<div class="choice-line">【B】 <code>alt</code></div>
-<div class="choice-line">【C】 <code>link</code></div>
-<div class="choice-line">【D】 <code>src</code></div>
-<div class="answer">⭕ 正解【D】 <code>src</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `href`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `alt`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `link`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `src`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 `src`</div>
 <div class="label">解説</div>
-<p><code>src</code> はsourceの略で、画像ファイルなどの読み込み元を指定します。リンク先を指定するのは <code>href</code> です。</p>
+<p>`src` はsourceの略で、画像ファイルなどの読み込み元を指定します。リンク先を指定するのは `href` です。</p>
 <div class="label caution">よくあるミス</div>
-<p>リンク先の <code>href</code> と、画像の読み込み元 <code>src</code> を混同する。</p>
+<p>リンク先の `href` と、画像の読み込み元 `src` を混同する。</p>
 <div class="label point">ポイント</div>
-<p>画像の場所 = <code>src</code></p>
-<p>リンク先 = <code>href</code></p>
-<hr>
-<h2 id="q09">Q09</h2>
+<p>画像の場所 = `src`</p><p>リンク先 = `href`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="8" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q09</span></div>
 <p>リンクを作成するタグはどれか</p>
-<div class="choice-line">【A】 <code>&lt;img&gt;</code></div>
-<div class="choice-line">【B】 <code>&lt;table&gt;</code></div>
-<div class="choice-line">【C】 <code>&lt;form&gt;</code></div>
-<div class="choice-line">【D】 <code>&lt;a&gt;</code></div>
-<div class="answer">⭕ 正解【D】 <code>&lt;a&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `&lt;img&gt;`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `&lt;table&gt;`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;form&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `&lt;a&gt;`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 `&lt;a&gt;`</div>
 <div class="label">解説</div>
-<p><code>&lt;a&gt;</code> タグはanchor（アンカー）の意味で、リンクを作成するために使います。リンク先は <code>href</code> 属性で指定します。</p>
+<p>`&lt;a&gt;` タグはanchor（アンカー）の意味で、リンクを作成するために使います。リンク先は `href` 属性で指定します。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>link</code> という名前のタグを想像してしまうが、リンクを作る基本タグは <code>&lt;a&gt;</code>。</p>
+<p>`link` という名前のタグを想像してしまうが、リンクを作る基本タグは `&lt;a&gt;`。</p>
 <div class="label point">ポイント</div>
-<p><code>&lt;a href=&quot;...&quot;&gt;</code> = リンク</p>
-<hr>
-<h2 id="q10">Q10</h2>
+<p>`&lt;a href=&quot;...&quot;&gt;` = リンク</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="9" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q10</span></div>
 <p>aタグでリンク先を指定する属性はどれか</p>
-<div class="choice-line">【A】 <code>src</code></div>
-<div class="choice-line">【B】 <code>url</code></div>
-<div class="choice-line">【C】 <code>href</code></div>
-<div class="choice-line">【D】 <code>link</code></div>
-<div class="answer">⭕ 正解【C】 <code>href</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `src`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `url`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `href`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `link`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 `href`</div>
 <div class="label">解説</div>
-<p><code>href</code> はリンク先を指定する属性です。<code>src</code> は画像などの読み込み元を指定する属性です。</p>
+<p>`href` はリンク先を指定する属性です。`src` は画像などの読み込み元を指定する属性です。</p>
 <div class="label caution">よくあるミス</div>
-<p>URLを書くので <code>url</code> 属性だと思ってしまう。</p>
+<p>URLを書くので `url` 属性だと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>リンク先 = <code>href</code></p>
-<hr>
-<h2 id="q11">Q11</h2>
+<p>リンク先 = `href`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="10" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q11</span></div>
 <p>alt属性の役割として最も適切なものはどれか</p>
-<div class="choice-line">【A】 画像のサイズを指定する</div>
-<div class="choice-line">【B】 画像の説明を提供する</div>
-<div class="choice-line">【C】 画像の位置を指定する</div>
-<div class="choice-line">【D】 画像を読み込む</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 画像のサイズを指定する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 画像の説明を提供する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 画像の位置を指定する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 画像を読み込む</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 画像の説明を提供する</div>
 <div class="label">解説</div>
-<p><code>alt</code> はalternative text（代替テキスト）の意味です。画像が表示されない場合や、音声読み上げを使う人に画像の意味を伝えるために使われます。</p>
+<p>`alt` はalternative text（代替テキスト）の意味です。画像が表示されない場合や、音声読み上げを使う人に画像の意味を伝えるために使われます。</p>
 <div class="label caution">よくあるミス</div>
 <p>画像に関する属性なので、サイズや位置を指定するものだと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p><code>alt</code> = 画像の説明 + アクセシビリティ</p>
-<hr>
-<h2 id="q12">Q12</h2>
+<p>`alt` = 画像の説明 + アクセシビリティ</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="11" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q12</span></div>
 <p>正しいHTMLの入れ子構造はどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/p&gt;&lt;/strong&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;&lt;/p&gt;文字&lt;/strong&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/p&gt;&lt;/strong&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;&lt;/p&gt;文字&lt;/strong&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】</div>
 <div class="label">解説</div>
-<p>HTMLでは、後から開いたタグを先に閉じます。<code>&lt;p&gt;</code> の中で <code>&lt;strong&gt;</code> を開いた場合、先に <code>&lt;/strong&gt;</code> を閉じてから <code>&lt;/p&gt;</code> を閉じます。</p>
+<p>HTMLでは、後から開いたタグを先に閉じます。`&lt;p&gt;` の中で `&lt;strong&gt;` を開いた場合、先に `&lt;/strong&gt;` を閉じてから `&lt;/p&gt;` を閉じます。</p>
 <div class="label caution">よくあるミス</div>
 <p>開いた順番と閉じる順番が混ざり、タグの交差が起きる。</p>
 <div class="label point">ポイント</div>
 <p>外 → 内 → 内 → 外</p>
-<hr>
-<h2 id="q13">Q13</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="12" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q13</span></div>
 <p>HTMLのコメントとして正しい書き方はどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>// コメント</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>/* コメント */</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;!-- コメント --&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code># コメント</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>// コメント</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>/* コメント */</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;!-- コメント --&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code># コメント</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】</div>
 <div class="label">解説</div>
-<p>HTMLのコメントは <code>&lt;!-- コメント --&gt;</code> と書きます。<code>//</code> はJavaScript、<code>/* */</code> はCSSやJavaScript、<code>#</code> は別の文脈で使われます。</p>
+<p>HTMLのコメントは `&lt;!-- コメント --&gt;` と書きます。`//` はJavaScript、`/* */` はCSSやJavaScript、`#` は別の文脈で使われます。</p>
 <div class="label caution">よくあるミス</div>
 <p>CSSやJavaScriptのコメント記法と混同する。</p>
 <div class="label point">ポイント</div>
-<p>HTMLコメント = <code>&lt;!-- --&gt;</code></p>
-<hr>
-<h2 id="q14">Q14</h2>
+<p>HTMLコメント = `&lt;!-- --&gt;`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="13" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q14</span></div>
 <p>HTMLファイルの拡張子として適切なものはどれか</p>
-<div class="choice-line">【A】 <code>.css</code></div>
-<div class="choice-line">【B】 <code>.js</code></div>
-<div class="choice-line">【C】 <code>.php</code></div>
-<div class="choice-line">【D】 <code>.html</code></div>
-<div class="answer">⭕ 正解【D】 <code>.html</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `.css`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `.js`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `.php`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `.html`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 `.html`</div>
 <div class="label">解説</div>
-<p>HTMLファイルの拡張子は <code>.html</code> です。<code>.css</code> はCSSファイル、<code>.js</code> はJavaScriptファイルで使われます。</p>
+<p>HTMLファイルの拡張子は `.html` です。`.css` はCSSファイル、`.js` はJavaScriptファイルで使われます。</p>
 <div class="label caution">よくあるミス</div>
 <p>Web制作で使う拡張子をすべて同じ種類だと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>HTMLファイル = <code>.html</code></p>
-<hr>
-<h2 id="q15">Q15</h2>
+<p>HTMLファイル = `.html`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="14" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q15</span></div>
 <p>相対パスの説明として正しいものはどれか</p>
-<div class="choice-line">【A】 現在のファイル位置を基準に指定する</div>
-<div class="choice-line">【B】 必ず <code>https://</code> から指定する</div>
-<div class="choice-line">【C】 パソコンのCドライブから指定する</div>
-<div class="choice-line">【D】 CSSファイルでしか使えない</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 現在のファイル位置を基準に指定する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 必ず `https://` から指定する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> パソコンのCドライブから指定する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> CSSファイルでしか使えない</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 現在のファイル位置を基準に指定する</div>
 <div class="label">解説</div>
 <p>相対パスは、今いるファイルの場所を基準にして目的のファイルを指定する書き方です。HTMLでもCSSでも使います。</p>
@@ -465,56 +418,87 @@
 <p>URL全体を書く絶対パスと混同する。</p>
 <div class="label point">ポイント</div>
 <p>相対パス = 今いる場所から</p>
-<hr>
-<h2 id="q16">Q16</h2>
-<p>相対パスで <code>../</code> が表すものはどれか</p>
-<div class="choice-line">【A】 1つ上の階層</div>
-<div class="choice-line">【B】 同じ階層</div>
-<div class="choice-line">【C】 2つ下の階層</div>
-<div class="choice-line">【D】 サイトのトップページ</div>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="15" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q16</span></div>
+<p>相対パスで `../` が表すものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 1つ上の階層</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 同じ階層</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 2つ下の階層</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> サイトのトップページ</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 1つ上の階層</div>
 <div class="label">解説</div>
-<p><code>../</code> は現在のファイルから見て1つ上のフォルダを表します。画像やCSSを読み込むときに頻出です。</p>
+<p>`../` は現在のファイルから見て1つ上のフォルダを表します。画像やCSSを読み込むときに頻出です。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>./</code> や <code>/</code> と混同する。</p>
+<p>`./` や `/` と混同する。</p>
 <div class="label point">ポイント</div>
-<p><code>../</code> = 1つ上</p>
-<hr>
-<h2 id="q17">Q17</h2>
+<p>`../` = 1つ上</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="16" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q17</span></div>
 <p>同じ階層にあるimagesフォルダ内のimg.pngを指定するパスはどれか</p>
-<div class="choice-line">【A】 <code>../images/img.png</code></div>
-<div class="choice-line">【B】 <code>img.png</code></div>
-<div class="choice-line">【C】 <code>images/img.png</code></div>
-<div class="choice-line">【D】 <code>C:\img.png</code></div>
-<div class="answer">⭕ 正解【C】 <code>images/img.png</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `../images/img.png`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `img.png`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `images/img.png`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `C:\img.png`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 `images/img.png`</div>
 <div class="label">解説</div>
-<p>現在のHTMLファイルと同じ階層に <code>images</code> フォルダがあり、その中に <code>img.png</code> がある場合は <code>images/img.png</code> と書きます。</p>
+<p>現在のHTMLファイルと同じ階層に `images` フォルダがあり、その中に `img.png` がある場合は `images/img.png` と書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p>1つ上の階層を表す <code>../</code> を不要な場面で付けてしまう。</p>
+<p>1つ上の階層を表す `../` を不要な場面で付けてしまう。</p>
 <div class="label point">ポイント</div>
-<p>同じ階層のフォルダ = <code>フォルダ名/ファイル名</code></p>
-<hr>
-<h2 id="q18">Q18</h2>
+<p>同じ階層のフォルダ = `フォルダ名/ファイル名`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="17" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q18</span></div>
 <p>HTMLとCSSの関係として正しいものはどれか</p>
-<div class="choice-line">【A】 HTMLが構造、CSSが見た目を担当する</div>
-<div class="choice-line">【B】 HTMLが見た目、CSSが構造を担当する</div>
-<div class="choice-line">【C】 HTMLもCSSも動きを担当する</div>
-<div class="choice-line">【D】 HTMLもCSSもデータ保存を担当する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> HTMLが構造、CSSが見た目を担当する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> HTMLが見た目、CSSが構造を担当する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> HTMLもCSSも動きを担当する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTMLもCSSもデータ保存を担当する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 HTMLが構造、CSSが見た目を担当する</div>
 <div class="label">解説</div>
 <p>HTMLは見出し・段落・画像などの構造を作り、CSSは色・サイズ・余白・配置などの見た目を整えます。</p>
 <div class="label caution">よくあるミス</div>
 <p>画面に見えるものをすべてHTMLの役割だと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>HTML = 骨組み</p>
-<p>CSS = 見た目</p>
-<hr>
-<h2 id="q19">Q19</h2>
+<p>HTML = 骨組み</p><p>CSS = 見た目</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="18" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q19</span></div>
 <p>HTMLとJavaScriptの関係として正しいものはどれか</p>
-<div class="choice-line">【A】 HTMLが動き、JavaScriptが構造を担当する</div>
-<div class="choice-line">【B】 HTMLもJavaScriptも見た目だけを担当する</div>
-<div class="choice-line">【C】 HTMLもJavaScriptも通信専用である</div>
-<div class="choice-line">【D】 HTMLが構造、JavaScriptが動きを担当する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> HTMLが動き、JavaScriptが構造を担当する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> HTMLもJavaScriptも見た目だけを担当する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> HTMLもJavaScriptも通信専用である</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTMLが構造、JavaScriptが動きを担当する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【D】 HTMLが構造、JavaScriptが動きを担当する</div>
 <div class="label">解説</div>
 <p>HTMLはページの構造を作ります。JavaScriptはクリックしたときの処理や表示変更など、ページに動きをつけるために使われます。</p>
@@ -522,314 +506,437 @@
 <p>JavaScriptをHTMLの別名のように考えてしまう。</p>
 <div class="label point">ポイント</div>
 <p>JavaScript = 動き</p>
-<hr>
-<h2 id="q20">Q20</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="19" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q20</span></div>
 <p>bodyタグの役割として最も適切なものはどれか</p>
-<div class="choice-line">【A】 文字コードを指定する</div>
-<div class="choice-line">【B】 画面に表示される内容を書く</div>
-<div class="choice-line">【C】 CSSだけを書く</div>
-<div class="choice-line">【D】 サーバー設定を書く</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 文字コードを指定する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 画面に表示される内容を書く</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> CSSだけを書く</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> サーバー設定を書く</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 画面に表示される内容を書く</div>
 <div class="label">解説</div>
-<p><code>body</code> には、ブラウザ画面に表示される見出し、文章、画像、リンクなどを書きます。ページ情報は主に <code>head</code> に書きます。</p>
+<p>`body` には、ブラウザ画面に表示される見出し、文章、画像、リンクなどを書きます。ページ情報は主に `head` に書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>head</code> と <code>body</code> の役割を混同する。</p>
+<p>`head` と `body` の役割を混同する。</p>
 <div class="label point">ポイント</div>
 <p>body = 表示内容</p>
-<hr>
-<h1 id="practice">■ 実技 3問</h1>
-<hr>
-<h2 id="p01">P01</h2>
-<p>画像を表示し、代替テキスト「猫の画像」を追加しなさい</p>
-<p>初期コード</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="20" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P01</span></div>
+<p>画像を表示し、代替テキスト「猫の画像」を追加しなさい</p><p>初期コード</p><p>⭕ 正答例</p>
+<div class="subhead">初期コード</div>
 <pre class="code-block"><code>&lt;img&gt;</code></pre>
-<p>⭕ 正答例</p>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="label">正答例</div>
 <pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;猫の画像&quot;&gt;</code></pre>
 <div class="label">解説</div>
-<p>画像を表示するには <code>img</code> タグを使い、画像ファイルの場所は <code>src</code>、画像の説明は <code>alt</code> に書きます。</p>
+<p>画像を表示するには `img` タグを使い、画像ファイルの場所は `src`、画像の説明は `alt` に書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>alt</code> を省略したり、<code>href</code> で画像を指定してしまう。</p>
+<p>`alt` を省略したり、`href` で画像を指定してしまう。</p>
 <div class="label point">ポイント</div>
-<p>画像表示 = <code>img src</code></p>
-<p>画像説明 = <code>alt</code></p>
-<hr>
-<h2 id="p02">P02</h2>
-<p>index.html へ移動するリンクを作成しなさい</p>
-<p>初期コード</p>
+<p>画像表示 = `img src`</p><p>画像説明 = `alt`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="21" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P02</span></div>
+<p>index.html へ移動するリンクを作成しなさい</p><p>初期コード</p><p>⭕ 正答例</p>
+<div class="subhead">初期コード</div>
 <pre class="code-block"><code>HOME</code></pre>
-<p>⭕ 正答例</p>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="label">正答例</div>
 <pre class="code-block"><code>&lt;a href=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre>
 <div class="label">解説</div>
-<p>リンクを作るには <code>a</code> タグを使い、リンク先は <code>href</code> 属性で指定します。</p>
+<p>リンクを作るには `a` タグを使い、リンク先は `href` 属性で指定します。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>src</code> 属性を使ってしまう。</p>
+<p>`src` 属性を使ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>リンク = <code>&lt;a href=&quot;...&quot;&gt;</code></p>
-<hr>
-<h2 id="p03">P03</h2>
-<p>同じ階層にあるimagesフォルダ内のsample.pngを表示しなさい</p>
-<p>初期コード</p>
+<p>リンク = `&lt;a href=&quot;...&quot;&gt;`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="22" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P03</span></div>
+<p>同じ階層にあるimagesフォルダ内のsample.pngを表示しなさい</p><p>初期コード</p><p>⭕ 正答例</p>
+<div class="subhead">初期コード</div>
 <pre class="code-block"><code>&lt;img src=&quot;&quot; alt=&quot;サンプル画像&quot;&gt;</code></pre>
-<p>⭕ 正答例</p>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="label">正答例</div>
 <pre class="code-block"><code>&lt;img src=&quot;images/sample.png&quot; alt=&quot;サンプル画像&quot;&gt;</code></pre>
 <div class="label">解説</div>
-<p>同じ階層にある <code>images</code> フォルダ内の <code>sample.png</code> を指定するので、<code>images/sample.png</code> と書きます。</p>
+<p>同じ階層にある `images` フォルダ内の `sample.png` を指定するので、`images/sample.png` と書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p>不要な <code>../</code> を付けてしまう。</p>
+<p>不要な `../` を付けてしまう。</p>
 <div class="label point">ポイント</div>
-<p>同じ階層のフォルダ = <code>images/sample.png</code></p>
-<hr>
-<h1 id="knowledge">■ 知識 5問</h1>
-<hr>
-<h2 id="k01">K01</h2>
-<p>Webページを見るためのソフトとして適切なものはどれか</p>
-<div class="choice-line">【A】 サーバー</div>
-<div class="choice-line">【B】 Google Chrome</div>
-<div class="choice-line">【C】 DNS</div>
-<div class="choice-line">【D】 HTML</div>
-<div class="answer">⭕ 正解【B】 Google Chrome</div>
+<p>同じ階層のフォルダ = `images/sample.png`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="23" data-section="知識" data-answer="D">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K01</span></div>
+<p>Webページを見るためのソフトとして適切でないものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Google Chrome</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Microsoft Edge</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> Safari</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> YouTube</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 YouTube</div>
 <div class="label">解説</div>
-<p>Google ChromeはWebページを見るためのブラウザです。Safari、Edge、Firefoxなどもブラウザです。</p>
+<p>Google Chrome、Microsoft Edge、SafariはWebページを見るためのブラウザです。YouTubeは動画共有サービスであり、ブラウザそのものではありません。</p>
 <div class="label caution">よくあるミス</div>
-<p>サーバーやDNSなど、Webに関係する言葉を同じ種類だと思ってしまう。</p>
+<p>よく使うWebサービスも、Webページを見るためのソフトだと考えてしまう。</p>
 <div class="label point">ポイント</div>
-<p>ブラウザ = Webページを見るソフト</p>
-<hr>
-<h2 id="k02">K02</h2>
+<p>ブラウザ = Webページを見るソフト</p><p>YouTube = Webサービス</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="24" data-section="知識" data-answer="C">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K02</span></div>
 <p>Web上のページやファイルの場所を示すものはどれか</p>
-<div class="choice-line">【A】 URL</div>
-<div class="choice-line">【B】 CSS</div>
-<div class="choice-line">【C】 HTML</div>
-<div class="choice-line">【D】 DNS</div>
-<div class="answer">⭕ 正解【A】 URL</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> HTML</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> XML</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> URL</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> UML</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 URL</div>
 <div class="label">解説</div>
-<p>URL（Uniform Resource Locator）は、Web上のページやファイルの場所を示す文字列です。</p>
+<p>URL（Uniform Resource Locator）は、Web上のページやファイルの場所を示す文字列です。HTMLやXMLは文書やデータの書き方、UMLは設計図を表すための記法です。</p>
 <div class="label caution">よくあるミス</div>
-<p>URLとHTMLを同じものだと思ってしまう。</p>
+<p>Webに関係する用語をまとめて同じものだと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>URL = Web上の住所</p>
-<hr>
-<h2 id="k03">K03</h2>
+<p>URL = 場所</p><p>HTML = 構造</p><p>XML = データ記述</p><p>UML = 設計記法</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="25" data-section="知識" data-answer="D">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K03</span></div>
 <p>WebブラウザとWebサーバーが通信するときのルールはどれか</p>
-<div class="choice-line">【A】 URL</div>
-<div class="choice-line">【B】 CSS</div>
-<div class="choice-line">【C】 HTTP</div>
-<div class="choice-line">【D】 PNG</div>
-<div class="answer">⭕ 正解【C】 HTTP</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> TCP/IP</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> UDP</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> HTML</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTTP</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 HTTP</div>
 <div class="label">解説</div>
-<p>HTTP（HyperText Transfer Protocol）は、WebブラウザとWebサーバーが通信するときのルールです。</p>
+<p>HTTP（HyperText Transfer Protocol）は、WebブラウザとWebサーバーが通信するときのルールです。TCP/IPは通信の基盤、UDPは通信方式の一つ、HTMLはページ構造を表す言語です。</p>
 <div class="label caution">よくあるミス</div>
-<p>HTMLとHTTPを名前が似ているため混同する。</p>
+<p>通信に関係するTCP/IPやUDPを、Webページ取得そのもののルールだと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>HTTP = Web通信のルール</p>
-<hr>
-<h2 id="k04">K04</h2>
+<p>HTTP = Web通信のルール</p><p>TCP/IP = 通信の基盤</p><p>UDP = 通信方式</p><p>HTML = ページ構造</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="26" data-section="知識" data-answer="D">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K04</span></div>
 <p>Webサーバーの役割として最も適切なものはどれか</p>
-<div class="choice-line">【A】 Webページを表示するだけのソフト</div>
-<div class="choice-line">【B】 文字の見た目を整える仕組み</div>
-<div class="choice-line">【C】 画像の代替テキストを書く属性</div>
-<div class="choice-line">【D】 Webページのデータを保存し、要求に応じて送る仕組み</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Webページを表示するだけのソフト</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 文字の見た目を整える仕組み</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 画像の代替テキストを書く属性</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> Webページのデータを保存し、要求に応じて送る仕組み</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【D】 Webページのデータを保存し、要求に応じて送る仕組み</div>
 <div class="label">解説</div>
 <p>Webサーバーは、HTMLや画像などのデータを保存し、ブラウザからの要求に応じてデータを送ります。</p>
 <div class="label caution">よくあるミス</div>
 <p>ブラウザとサーバーを同じものだと思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>ブラウザ = 見る側</p>
-<p>サーバー = 送る側</p>
-<hr>
-<h2 id="k05">K05</h2>
+<p>ブラウザ = 見る側</p><p>サーバー = 送る側</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="27" data-section="知識" data-answer="B">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K05</span></div>
 <p>ブラウザとサーバーの関係として正しいものはどれか</p>
-<div class="choice-line">【A】 どちらも同じ役割である</div>
-<div class="choice-line">【B】 ブラウザが要求し、サーバーが応答する</div>
-<div class="choice-line">【C】 サーバーがCSSを書き、ブラウザがHTMLを書く</div>
-<div class="choice-line">【D】 どちらも画像形式である</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> どちらも同じ役割である</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> ブラウザが要求し、サーバーが応答する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> サーバーがCSSを書き、ブラウザがHTMLを書く</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> どちらも画像形式である</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 ブラウザが要求し、サーバーが応答する</div>
 <div class="label">解説</div>
 <p>ブラウザはサーバーにページを要求し、サーバーは必要なデータを返します。この流れをリクエストとレスポンスと考えます。</p>
 <div class="label caution">よくあるミス</div>
 <p>ブラウザとサーバーの向きが逆になる。</p>
 <div class="label point">ポイント</div>
-<p>ブラウザ → リクエスト</p>
-<p>サーバー → レスポンス</p>
-<hr>
-<h1 id="review">■ 復習 5問</h1>
-<hr>
-<h2 id="r01">R01</h2>
+<p>ブラウザ → リクエスト</p><p>サーバー → レスポンス</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="28" data-section="復習" data-answer="C">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R01</span></div>
 <p>imgタグで画像ファイルの場所を指定する属性はどれか</p>
-<div class="choice-line">【A】 <code>href</code></div>
-<div class="choice-line">【B】 <code>alt</code></div>
-<div class="choice-line">【C】 <code>src</code></div>
-<div class="choice-line">【D】 <code>link</code></div>
-<div class="answer">⭕ 正解【C】 <code>src</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `href`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `alt`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `src`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `link`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 `src`</div>
 <div class="label">解説</div>
-<p>画像ファイルの場所は <code>src</code> 属性で指定します。<code>href</code> はリンク先を指定します。</p>
+<p>画像ファイルの場所は `src` 属性で指定します。`href` はリンク先を指定します。</p>
 <div class="label caution">よくあるミス</div>
 <p>画像の場所とリンク先を混同する。</p>
 <div class="label point">ポイント</div>
-<p>画像 = <code>src</code></p>
-<p>リンク = <code>href</code></p>
-<hr>
-<h2 id="r02">R02</h2>
+<p>画像 = `src`</p><p>リンク = `href`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="29" data-section="復習" data-answer="A">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R02</span></div>
 <p>リンクを作る基本形として正しいものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;a href=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;img href=&quot;index.html&quot;&gt;HOME&lt;/img&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;link src=&quot;index.html&quot;&gt;HOME&lt;/link&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;a src=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;a href=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;img href=&quot;index.html&quot;&gt;HOME&lt;/img&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;link src=&quot;index.html&quot;&gt;HOME&lt;/link&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;a src=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】</div>
 <div class="label">解説</div>
-<p>リンクは <code>a</code> タグで作り、リンク先は <code>href</code> に書きます。</p>
+<p>リンクは `a` タグで作り、リンク先は `href` に書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p>画像で使う <code>src</code> をリンクにも使ってしまう。</p>
+<p>画像で使う `src` をリンクにも使ってしまう。</p>
 <div class="label point">ポイント</div>
-<p><code>&lt;a href=&quot;...&quot;&gt;</code></p>
-<hr>
-<h2 id="r03">R03</h2>
+<p>`&lt;a href=&quot;...&quot;&gt;`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="30" data-section="復習" data-answer="C">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R03</span></div>
 <p>alt属性の説明として正しいものはどれか</p>
-<div class="choice-line">【A】 画像の読み込み元を指定する</div>
-<div class="choice-line">【B】 リンク先を指定する</div>
-<div class="choice-line">【C】 画像の説明を指定する</div>
-<div class="choice-line">【D】 ファイルの拡張子を指定する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 画像の読み込み元を指定する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> リンク先を指定する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 画像の説明を指定する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> ファイルの拡張子を指定する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】 画像の説明を指定する</div>
 <div class="label">解説</div>
-<p><code>alt</code> は画像の説明を指定する属性です。画像が表示されない場合や読み上げで役立ちます。</p>
+<p>`alt` は画像の説明を指定する属性です。画像が表示されない場合や読み上げで役立ちます。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>src</code> と混同する。</p>
+<p>`src` と混同する。</p>
 <div class="label point">ポイント</div>
 <p>alt = 代替テキスト</p>
-<hr>
-<h2 id="r04">R04</h2>
-<p>相対パスで <code>../</code> が表すものはどれか</p>
-<div class="choice-line">【A】 同じ階層</div>
-<div class="choice-line">【B】 1つ上の階層</div>
-<div class="choice-line">【C】 サイト外のページ</div>
-<div class="choice-line">【D】 画像ファイルそのもの</div>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="31" data-section="復習" data-answer="B">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R04</span></div>
+<p>相対パスで `../` が表すものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 同じ階層</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 1つ上の階層</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> サイト外のページ</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 画像ファイルそのもの</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 1つ上の階層</div>
 <div class="label">解説</div>
-<p><code>../</code> は、現在のファイルから見て1つ上のフォルダを表します。</p>
+<p>`../` は、現在のファイルから見て1つ上のフォルダを表します。</p>
 <div class="label caution">よくあるミス</div>
 <p>同じ階層の指定と混同する。</p>
 <div class="label point">ポイント</div>
-<p><code>../</code> = 1つ上</p>
-<hr>
-<h2 id="r05">R05</h2>
+<p>`../` = 1つ上</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="32" data-section="復習" data-answer="C">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R05</span></div>
 <p>HTMLの入れ子構造として正しいものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/p&gt;&lt;/strong&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;&lt;/p&gt;文字&lt;/strong&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/p&gt;&lt;/strong&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;&lt;/p&gt;文字&lt;/strong&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】</div>
 <div class="label">解説</div>
-<p>後から開いたタグを先に閉じる必要があります。<code>&lt;p&gt;</code> の中で <code>&lt;strong&gt;</code> を開いたら、先に <code>&lt;/strong&gt;</code> を閉じます。</p>
+<p>後から開いたタグを先に閉じる必要があります。`&lt;p&gt;` の中で `&lt;strong&gt;` を開いたら、先に `&lt;/strong&gt;` を閉じます。</p>
 <div class="label caution">よくあるミス</div>
 <p>閉じタグの順番を逆にする。</p>
 <div class="label point">ポイント</div>
 <p>外 → 内 → 内 → 外</p>
-<hr>
-<h1 id="advanced">■ 応用 5問</h1>
-<hr>
-<h2 id="b01">B01</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="33" data-section="応用" data-answer="A">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B01</span></div>
 <p>次のコードで画像が表示されない原因として最も適切なものはどれか</p>
 <pre class="code-block"><code>&lt;img alt=&quot;猫の画像&quot;&gt;</code></pre>
-<div class="choice-line">【A】 <code>src</code> 属性がない</div>
-<div class="choice-line">【B】 <code>alt</code> 属性がある</div>
-<div class="choice-line">【C】 <code>img</code> タグは画像表示に使えない</div>
-<div class="choice-line">【D】 <code>href</code> 属性がないと画像は表示できない</div>
-<div class="answer">⭕ 正解【A】 <code>src</code> 属性がない</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `src` 属性がない</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `alt` 属性がある</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `img` タグは画像表示に使えない</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `href` 属性がないと画像は表示できない</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【A】 `src` 属性がない</div>
 <div class="label">解説</div>
-<p>画像を表示するには、画像ファイルの場所を指定する <code>src</code> 属性が必要です。<code>alt</code> は画像の説明であり、画像の場所ではありません。</p>
+<p>画像を表示するには、画像ファイルの場所を指定する `src` 属性が必要です。`alt` は画像の説明であり、画像の場所ではありません。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>alt</code> があれば画像も表示できると思ってしまう。</p>
+<p>`alt` があれば画像も表示できると思ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>表示に必要 = <code>src</code></p>
-<p>説明に必要 = <code>alt</code></p>
-<hr>
-<h2 id="b02">B02</h2>
+<p>表示に必要 = `src`</p><p>説明に必要 = `alt`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="34" data-section="応用" data-answer="B">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B02</span></div>
 <p>次のうち、リンク先の指定として正しいものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;a alt=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;a href=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;img href=&quot;index.html&quot;&gt;HOME&lt;/img&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;a src=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;a alt=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;a href=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;img href=&quot;index.html&quot;&gt;HOME&lt;/img&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;a src=&quot;index.html&quot;&gt;HOME&lt;/a&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】</div>
 <div class="label">解説</div>
-<p>リンクは <code>a</code> タグで作り、リンク先は <code>href</code> 属性に書きます。</p>
+<p>リンクは `a` タグで作り、リンク先は `href` 属性に書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p>画像で使う <code>src</code> と混同する。</p>
+<p>画像で使う `src` と混同する。</p>
 <div class="label point">ポイント</div>
 <p>aタグ + href</p>
-<hr>
-<h2 id="b03">B03</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="35" data-section="応用" data-answer="C">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B03</span></div>
 <p>現在のHTMLと同じ階層にあるimagesフォルダ内のcat.pngを表示する書き方として正しいものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;img src=&quot;../images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;img href=&quot;images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;img src=&quot;images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;a src=&quot;images/cat.png&quot;&gt;猫&lt;/a&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;img src=&quot;../images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;img href=&quot;images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;img src=&quot;images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;a src=&quot;images/cat.png&quot;&gt;猫&lt;/a&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】</div>
 <div class="label">解説</div>
-<p>同じ階層の <code>images</code> フォルダ内の <code>cat.png</code> は <code>images/cat.png</code> と指定します。画像の場所は <code>src</code> 属性で指定します。</p>
+<p>同じ階層の `images` フォルダ内の `cat.png` は `images/cat.png` と指定します。画像の場所は `src` 属性で指定します。</p>
 <div class="label caution">よくあるミス</div>
-<p>不要な <code>../</code> を付ける、または <code>href</code> を使ってしまう。</p>
+<p>不要な `../` を付ける、または `href` を使ってしまう。</p>
 <div class="label point">ポイント</div>
-<p>同じ階層 = <code>images/cat.png</code></p>
-<hr>
-<h2 id="b04">B04</h2>
+<p>同じ階層 = `images/cat.png`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="36" data-section="応用" data-answer="B">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B04</span></div>
 <p>alt属性を入れる理由として最も適切なものはどれか</p>
-<div class="choice-line">【A】 画像のサイズを自動で小さくするため</div>
-<div class="choice-line">【B】 画像が表示されないときや読み上げで内容を伝えるため</div>
-<div class="choice-line">【C】 画像ファイルを圧縮するため</div>
-<div class="choice-line">【D】 画像の色を変更するため</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 画像のサイズを自動で小さくするため</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 画像が表示されないときや読み上げで内容を伝えるため</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 画像ファイルを圧縮するため</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 画像の色を変更するため</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 画像が表示されないときや読み上げで内容を伝えるため</div>
 <div class="label">解説</div>
-<p><code>alt</code> は画像の意味をテキストで伝えるために使います。アクセシビリティの観点でも重要です。</p>
+<p>`alt` は画像の意味をテキストで伝えるために使います。アクセシビリティの観点でも重要です。</p>
 <div class="label caution">よくあるミス</div>
 <p>画像の見た目を調整する属性だと思ってしまう。</p>
 <div class="label point">ポイント</div>
 <p>alt = 画像の意味を伝える</p>
-<hr>
-<h2 id="b05">B05</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="37" data-section="応用" data-answer="C">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B05</span></div>
 <p>HTMLの構造として最も適切なものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;body&gt;&lt;head&gt;&lt;h1&gt;タイトル&lt;/h1&gt;&lt;/head&gt;&lt;/body&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;html&gt;&lt;body&gt;&lt;head&gt;&lt;/head&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;タイトル&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;head&gt;&lt;html&gt;&lt;body&gt;本文&lt;/body&gt;&lt;/html&gt;&lt;/head&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;body&gt;&lt;head&gt;&lt;h1&gt;タイトル&lt;/h1&gt;&lt;/head&gt;&lt;/body&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;html&gt;&lt;body&gt;&lt;head&gt;&lt;/head&gt;&lt;/body&gt;&lt;/html&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;タイトル&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;head&gt;&lt;html&gt;&lt;body&gt;本文&lt;/body&gt;&lt;/html&gt;&lt;/head&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】</div>
 <div class="label">解説</div>
-<p>HTMLでは、<code>html</code> の中に <code>head</code> と <code>body</code> が入り、画面に表示する内容は <code>body</code> の中に書きます。</p>
+<p>HTMLでは、`html` の中に `head` と `body` が入り、画面に表示する内容は `body` の中に書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>head</code> と <code>body</code> の順番や役割を混同する。</p>
+<p>`head` と `body` の順番や役割を混同する。</p>
 <div class="label point">ポイント</div>
 <p>表示内容は body の中</p>
-<hr>
-<h1 id="homework">＜宿題＞</h1>
-<hr>
-<h1>■ ① 復習（授業問題10問）</h1>
-<hr>
-<h2 id="hr01">HR01</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="38" data-section="宿題 復習" data-answer="A">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR01</span></div>
 <p>HTMLの役割として最も適切なものはどれか</p>
-<div class="choice-line">【A】 Webページの構造を定義する</div>
-<div class="choice-line">【B】 Webページの見た目を整える</div>
-<div class="choice-line">【C】 Webページに動きをつける</div>
-<div class="choice-line">【D】 データベースを操作する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Webページの構造を定義する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Webページの見た目を整える</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> Webページに動きをつける</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> データベースを操作する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 Webページの構造を定義する</div>
 <div class="label">解説</div>
 <p>HTMLはWebページの構造を表します。見た目はCSS、動きはJavaScriptが担当します。</p>
@@ -837,73 +944,109 @@
 <p>CSSと混同して見た目を選んでしまう。</p>
 <div class="label point">ポイント</div>
 <p>HTML = 構造</p>
-<hr>
-<h2 id="hr02">HR02</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="39" data-section="宿題 復習" data-answer="C">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR02</span></div>
 <p>HTMLタグの書き方として正しいものはどれか</p>
-<div class="choice-line">【A】 <code>[h1]</code></div>
-<div class="choice-line">【B】 <code>{h1}</code></div>
-<div class="choice-line">【C】 <code>&lt;h1&gt;</code></div>
-<div class="choice-line">【D】 <code>(h1)</code></div>
-<div class="answer">⭕ 正解【C】 <code>&lt;h1&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `[h1]`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `{h1}`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;h1&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `(h1)`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【C】 `&lt;h1&gt;`</div>
 <div class="label">解説</div>
-<p>HTMLタグは <code>&lt; &gt;</code> で囲みます。</p>
+<p>HTMLタグは `&lt; &gt;` で囲みます。</p>
 <div class="label caution">よくあるミス</div>
-<p>プログラミングで使う <code>()</code> や <code>{}</code> と混同する。</p>
+<p>プログラミングで使う `()` や `{}` と混同する。</p>
 <div class="label point">ポイント</div>
-<p>タグは <code>&lt; &gt;</code></p>
-<hr>
-<h2 id="hr03">HR03</h2>
+<p>タグは `&lt; &gt;`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="40" data-section="宿題 復習" data-answer="D">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR03</span></div>
 <p>画像を表示するタグはどれか</p>
-<div class="choice-line">【A】 <code>&lt;image&gt;</code></div>
-<div class="choice-line">【B】 <code>src</code></div>
-<div class="choice-line">【C】 <code>&lt;picture&gt;</code></div>
-<div class="choice-line">【D】 <code>&lt;img&gt;</code></div>
-<div class="answer">⭕ 正解【D】 <code>&lt;img&gt;</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `&lt;image&gt;`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `&lt;src&gt;`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `&lt;pic&gt;`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `&lt;img&gt;`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【D】 `&lt;img&gt;`</div>
 <div class="label">解説</div>
-<p>画像を表示する基本タグは <code>&lt;img&gt;</code> です。<code>src</code> は画像の場所を指定する属性です。</p>
+<p>画像を表示する基本タグは `&lt;img&gt;` です。`src` は画像の場所を指定する属性であり、タグではありません。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>image</code> を選んでしまう。</p>
+<p>`&lt;image&gt;` のように英単語そのままのタグを選んでしまう。また、`&lt;src&gt;` はタグではなく属性である点を混同しやすい。</p>
 <div class="label point">ポイント</div>
-<p>画像タグ = img</p>
-<hr>
-<h2 id="hr04">HR04</h2>
+<p>タグ = `&lt;img&gt;`</p><p>属性 = `src`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="41" data-section="宿題 復習" data-answer="A">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR04</span></div>
 <p>リンク先を指定する属性はどれか</p>
-<div class="choice-line">【A】 <code>href</code></div>
-<div class="choice-line">【B】 <code>src</code></div>
-<div class="choice-line">【C】 <code>alt</code></div>
-<div class="choice-line">【D】 <code>link</code></div>
-<div class="answer">⭕ 正解【A】 <code>href</code></div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> `href`</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> `src`</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> `alt`</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> `link`</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">⭕ 正解【A】 `href`</div>
 <div class="label">解説</div>
-<p>リンク先は <code>href</code> 属性で指定します。画像の読み込み元は <code>src</code> 属性です。</p>
+<p>リンク先は `href` 属性で指定します。画像の読み込み元は `src` 属性です。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>src</code> と混同する。</p>
+<p>`src` と混同する。</p>
 <div class="label point">ポイント</div>
 <p>リンク先 = href</p>
-<hr>
-<h2 id="hr05">HR05</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="42" data-section="宿題 復習" data-answer="B">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR05</span></div>
 <p>alt属性の説明として正しいものはどれか</p>
-<div class="choice-line">【A】 画像の場所を指定する</div>
-<div class="choice-line">【B】 画像の説明を指定する</div>
-<div class="choice-line">【C】 リンク先を指定する</div>
-<div class="choice-line">【D】 HTMLファイル名を指定する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 画像の場所を指定する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 画像の説明を指定する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> リンク先を指定する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTMLファイル名を指定する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 画像の説明を指定する</div>
 <div class="label">解説</div>
-<p><code>alt</code> は画像の代替テキストです。画像が表示されない場合や読み上げで使われます。</p>
+<p>`alt` は画像の代替テキストです。画像が表示されない場合や読み上げで使われます。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>src</code> と混同する。</p>
+<p>`src` と混同する。</p>
 <div class="label point">ポイント</div>
 <p>alt = 画像の説明</p>
-<hr>
-<h2 id="hr06">HR06</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="43" data-section="宿題 復習" data-answer="B">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR06</span></div>
 <p>正しい入れ子構造はどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/p&gt;&lt;/strong&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;&lt;/p&gt;文字&lt;/strong&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/p&gt;&lt;/strong&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;文字&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;&lt;/p&gt;文字&lt;/strong&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】</div>
 <div class="label">解説</div>
 <p>後から開いたタグを先に閉じます。</p>
@@ -911,31 +1054,43 @@
 <p>タグの閉じる順番を間違える。</p>
 <div class="label point">ポイント</div>
 <p>外 → 内 → 内 → 外</p>
-<hr>
-<h2 id="hr07">HR07</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="44" data-section="宿題 復習" data-answer="D">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR07</span></div>
 <p>HTMLコメントとして正しいものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>// コメント</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code># コメント</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>/* コメント */</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;!-- コメント --&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>// コメント</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code># コメント</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>/* コメント */</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;!-- コメント --&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【D】</div>
 <div class="label">解説</div>
-<p>HTMLのコメントは <code>&lt;!-- --&gt;</code> で書きます。</p>
+<p>HTMLのコメントは `&lt;!-- --&gt;` で書きます。</p>
 <div class="label caution">よくあるミス</div>
 <p>CSSやJavaScriptのコメントと混同する。</p>
 <div class="label point">ポイント</div>
-<p>HTMLコメント = <code>&lt;!-- --&gt;</code></p>
-<hr>
-<h2 id="hr08">HR08</h2>
+<p>HTMLコメント = `&lt;!-- --&gt;`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="45" data-section="宿題 復習" data-answer="A">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR08</span></div>
 <p>相対パスの説明として正しいものはどれか</p>
-<div class="choice-line">【A】 現在のファイル位置を基準に指定する</div>
-<div class="choice-line">【B】 必ず <code>https://</code> から書く</div>
-<div class="choice-line">【C】 CSSだけで使う書き方</div>
-<div class="choice-line">【D】 パソコンのCドライブから指定する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 現在のファイル位置を基準に指定する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 必ず `https://` から書く</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> CSSだけで使う書き方</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> パソコンのCドライブから指定する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 現在のファイル位置を基準に指定する</div>
 <div class="label">解説</div>
 <p>相対パスは現在のファイル位置を基準に指定します。</p>
@@ -943,136 +1098,175 @@
 <p>絶対パスと混同する。</p>
 <div class="label point">ポイント</div>
 <p>相対 = 今いる場所から</p>
-<hr>
-<h2 id="hr09">HR09</h2>
-<p>相対パスで <code>../</code> が表すものはどれか</p>
-<div class="choice-line">【A】 同じ階層</div>
-<div class="choice-line">【B】 2つ下の階層</div>
-<div class="choice-line">【C】 1つ上の階層</div>
-<div class="choice-line">【D】 外部サイト</div>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="46" data-section="宿題 復習" data-answer="C">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR09</span></div>
+<p>相対パスで `../` が表すものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 同じ階層</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 2つ下の階層</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 1つ上の階層</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 外部サイト</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】 1つ上の階層</div>
 <div class="label">解説</div>
-<p><code>../</code> は1つ上の階層を表します。</p>
+<p>`../` は1つ上の階層を表します。</p>
 <div class="label caution">よくあるミス</div>
 <p>同じ階層の指定と混同する。</p>
 <div class="label point">ポイント</div>
 <p>../ = 1つ上</p>
-<hr>
-<h2 id="hr10">HR10</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="47" data-section="宿題 復習" data-answer="A">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR10</span></div>
 <p>bodyタグに書く内容として最も適切なものはどれか</p>
-<div class="choice-line">【A】 画面に表示する見出しや文章</div>
-<div class="choice-line">【B】 文字コードの設定だけ</div>
-<div class="choice-line">【C】 CSSファイルだけ</div>
-<div class="choice-line">【D】 サーバーの設定</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 画面に表示する見出しや文章</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 文字コードの設定だけ</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> CSSファイルだけ</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> サーバーの設定</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 画面に表示する見出しや文章</div>
 <div class="label">解説</div>
-<p><code>body</code> には、ブラウザに表示する内容を書きます。ページ情報は主に <code>head</code> に書きます。</p>
+<p>`body` には、ブラウザに表示する内容を書きます。ページ情報は主に `head` に書きます。</p>
 <div class="label caution">よくあるミス</div>
 <p>headとbodyの役割を混同する。</p>
 <div class="label point">ポイント</div>
 <p>body = 表示内容</p>
-<hr>
-<h1>■ ② アレンジ問題（5問）</h1>
-<hr>
-<h2 id="ha01">HA01</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="48" data-section="宿題 アレンジ" data-answer="C">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA01</span></div>
 <p>次のうち、画像表示として正しい書き方はどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;image src=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;img href=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;a src=&quot;cat.png&quot;&gt;猫&lt;/a&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;image src=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;img href=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;a src=&quot;cat.png&quot;&gt;猫&lt;/a&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】</div>
 <div class="label">解説</div>
-<p>画像は <code>img</code> タグで表示し、画像ファイルの場所は <code>src</code> に書きます。</p>
+<p>画像は `img` タグで表示し、画像ファイルの場所は `src` に書きます。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>image</code> タグや <code>href</code> 属性を使ってしまう。</p>
+<p>`image` タグや `href` 属性を使ってしまう。</p>
 <div class="label point">ポイント</div>
 <p>画像 = img + src</p>
-<hr>
-<h2 id="ha02">HA02</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="49" data-section="宿題 アレンジ" data-answer="A">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA02</span></div>
 <p>次のうち、リンクとして正しい書き方はどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;link href=&quot;about.html&quot;&gt;About&lt;/link&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;img href=&quot;about.html&quot;&gt;About&lt;/img&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;a src=&quot;about.html&quot;&gt;About&lt;/a&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;a href=&quot;about.html&quot;&gt;About&lt;/a&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;link href=&quot;about.html&quot;&gt;About&lt;/link&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;img href=&quot;about.html&quot;&gt;About&lt;/img&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;a src=&quot;about.html&quot;&gt;About&lt;/a&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】</div>
 <div class="label">解説</div>
-<p>リンクは <code>a</code> タグで作り、リンク先は <code>href</code> 属性で指定します。</p>
+<p>リンクは `a` タグで作り、リンク先は `href` 属性で指定します。</p>
 <div class="label caution">よくあるミス</div>
-<p><code>src</code> と <code>href</code> を混同する。</p>
+<p>`src` と `href` を混同する。</p>
 <div class="label point">ポイント</div>
 <p>リンク = a + href</p>
-<hr>
-<h2 id="ha03">HA03</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="50" data-section="宿題 アレンジ" data-answer="B">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA03</span></div>
 <p>次のうち、1つ上の階層にあるimagesフォルダ内のcat.pngを表示する正しい書き方はどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;img src=&quot;images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;img src=&quot;../images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;img href=&quot;../images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;a src=&quot;../images/cat.png&quot;&gt;猫&lt;/a&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;img src=&quot;images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;img src=&quot;../images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;img href=&quot;../images/cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;a src=&quot;../images/cat.png&quot;&gt;猫&lt;/a&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】</div>
 <div class="label">解説</div>
-<p><code>../</code> は1つ上の階層を表します。そこにある <code>images</code> フォルダ内の <code>cat.png</code> なので、<code>../images/cat.png</code> です。</p>
+<p>`../` は1つ上の階層を表します。そこにある `images` フォルダ内の `cat.png` なので、`../images/cat.png` です。</p>
 <div class="label caution">よくあるミス</div>
-<p>同じ階層の指定 <code>images/cat.png</code> と混同する。</p>
+<p>同じ階層の指定 `images/cat.png` と混同する。</p>
 <div class="label point">ポイント</div>
-<p>1つ上 = <code>../</code></p>
-<hr>
-<h2 id="ha04">HA04</h2>
+<p>1つ上 = `../`</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="51" data-section="宿題 アレンジ" data-answer="C">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA04</span></div>
 <p>次のうち、HTMLの入れ子として正しいものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;div&gt;&lt;p&gt;本文&lt;/div&gt;&lt;/p&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;本文&lt;/p&gt;&lt;/strong&gt;</code></pre>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;div&gt;&lt;p&gt;本文&lt;/p&gt;&lt;/div&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;本文&lt;/strong&gt;&lt;/p&gt;</code></pre>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;div&gt;&lt;p&gt;本文&lt;/div&gt;&lt;/p&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;p&gt;&lt;strong&gt;本文&lt;/p&gt;&lt;/strong&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;div&gt;&lt;p&gt;本文&lt;/p&gt;&lt;/div&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;strong&gt;&lt;p&gt;本文&lt;/strong&gt;&lt;/p&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【C】</div>
 <div class="label">解説</div>
-<p>タグは、後から開いたものを先に閉じます。<code>div</code> の中に <code>p</code> を入れるなら、先に <code>&lt;/p&gt;</code>、その後に <code>&lt;/div&gt;</code> です。</p>
+<p>タグは、後から開いたものを先に閉じます。`div` の中に `p` を入れるなら、先に `&lt;/p&gt;`、その後に `&lt;/div&gt;` です。</p>
 <div class="label caution">よくあるミス</div>
 <p>閉じタグが交差してしまう。</p>
 <div class="label point">ポイント</div>
 <p>外 → 内 → 内 → 外</p>
-<hr>
-<h2 id="ha05">HA05</h2>
-<p>次のうち、alt属性の使い方として最も適切なものはどれか</p>
-<div class="choice-line">【A】</div>
-<pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;猫が座っている写真&quot;&gt;</code></pre>
-<div class="choice-line">【B】</div>
-<pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;&quot;&gt;</code></pre>
-<p>※意味のある写真の場合</p>
-<div class="choice-line">【C】</div>
-<pre class="code-block"><code>&lt;img alt=&quot;cat.png&quot; src=&quot;猫が座っている写真&quot;&gt;</code></pre>
-<div class="choice-line">【D】</div>
-<pre class="code-block"><code>&lt;img href=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="52" data-section="宿題 アレンジ" data-answer="A">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA05</span></div>
+<p>次のうち、alt属性の使い方として最も適切なものはどれか</p><p>※意味のある写真の場合</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;猫が座っている写真&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <pre class="code-block"><code>&lt;img src=&quot;cat.png&quot; alt=&quot;&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <pre class="code-block"><code>&lt;img alt=&quot;cat.png&quot; src=&quot;猫が座っている写真&quot;&gt;</code></pre></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <pre class="code-block"><code>&lt;img href=&quot;cat.png&quot; alt=&quot;猫&quot;&gt;</code></pre></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】</div>
 <div class="label">解説</div>
 <p>意味のある画像には、内容が伝わる代替テキストを書くのが適切です。装飾だけの画像では空のaltを使うこともありますが、意味のある写真では説明を入れるのが基本です。</p>
 <div class="label caution">よくあるミス</div>
-<p>何でも <code>alt=&quot;&quot;</code> にしてしまう。</p>
+<p>何でも `alt=&quot;&quot;` にしてしまう。</p>
 <div class="label point">ポイント</div>
 <p>意味のある画像には説明を書く</p>
-<hr>
-<h1 id="knowledge">■ ③ 知識問題（5問）</h1>
-<hr>
-<h2 id="hk01">HK01</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="53" data-section="宿題 知識" data-answer="A">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK01</span></div>
 <p>HTTPの説明として正しいものはどれか</p>
-<div class="choice-line">【A】 Web通信のためのルール</div>
-<div class="choice-line">【B】 画像ファイルの形式</div>
-<div class="choice-line">【C】 CSSのプロパティ</div>
-<div class="choice-line">【D】 HTMLタグの一種</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Web通信のためのルール</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 画像ファイルの形式</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> CSSのプロパティ</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTMLタグの一種</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 Web通信のためのルール</div>
 <div class="label">解説</div>
 <p>HTTP（HyperText Transfer Protocol）は、WebブラウザとWebサーバーが通信するときのルールです。</p>
@@ -1080,13 +1274,21 @@
 <p>HTMLと名前が似ているため混同する。</p>
 <div class="label point">ポイント</div>
 <p>HTTP = 通信ルール</p>
-<hr>
-<h2 id="hk02">HK02</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="54" data-section="宿題 知識" data-answer="B">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK02</span></div>
 <p>URLの説明として正しいものはどれか</p>
-<div class="choice-line">【A】 画像の説明文</div>
-<div class="choice-line">【B】 Web上の場所を示す文字列</div>
-<div class="choice-line">【C】 文字の太さ</div>
-<div class="choice-line">【D】 HTMLのコメント</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 画像の説明文</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Web上の場所を示す文字列</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 文字の太さ</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTMLのコメント</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 Web上の場所を示す文字列</div>
 <div class="label">解説</div>
 <p>URL（Uniform Resource Locator）は、Webページやファイルの場所を示す文字列です。</p>
@@ -1094,13 +1296,21 @@
 <p>HTMLファイル名そのものと混同する。</p>
 <div class="label point">ポイント</div>
 <p>URL = Web上の住所</p>
-<hr>
-<h2 id="hk03">HK03</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="55" data-section="宿題 知識" data-answer="B">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK03</span></div>
 <p>ブラウザの役割として正しいものはどれか</p>
-<div class="choice-line">【A】 Webページを保存して配信する</div>
-<div class="choice-line">【B】 Webページを見るために表示する</div>
-<div class="choice-line">【C】 画像ファイルを圧縮する</div>
-<div class="choice-line">【D】 パスワードを作成する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Webページを保存して配信する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Webページを見るために表示する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 画像ファイルを圧縮する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> パスワードを作成する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 Webページを見るために表示する</div>
 <div class="label">解説</div>
 <p>ブラウザはWebページを表示するソフトです。Google Chrome、Safari、Edgeなどがあります。</p>
@@ -1108,13 +1318,21 @@
 <p>サーバーと混同する。</p>
 <div class="label point">ポイント</div>
 <p>ブラウザ = 見る側</p>
-<hr>
-<h2 id="hk04">HK04</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="56" data-section="宿題 知識" data-answer="A">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK04</span></div>
 <p>サーバーの役割として正しいものはどれか</p>
-<div class="choice-line">【A】 Webページのデータを保存し、要求に応じて送る</div>
-<div class="choice-line">【B】 文字色を指定する</div>
-<div class="choice-line">【C】 画像のaltを書く</div>
-<div class="choice-line">【D】 HTMLタグを自動で閉じる</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Webページのデータを保存し、要求に応じて送る</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 文字色を指定する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 画像のaltを書く</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> HTMLタグを自動で閉じる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【A】 Webページのデータを保存し、要求に応じて送る</div>
 <div class="label">解説</div>
 <p>サーバーは、ブラウザからのリクエストに応じてHTMLや画像などのデータを返します。</p>
@@ -1122,53 +1340,113 @@
 <p>ブラウザとサーバーを同じものだと思う。</p>
 <div class="label point">ポイント</div>
 <p>サーバー = 送る側</p>
-<hr>
-<h2 id="hk05">HK05</h2>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article>
+<article class="card" data-index="57" data-section="宿題 知識" data-answer="B">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK05</span></div>
 <p>Webページを表示するときの基本的な流れとして正しいものはどれか</p>
-<div class="choice-line">【A】 サーバーが先に表示し、ブラウザが保存する</div>
-<div class="choice-line">【B】 ブラウザが要求し、サーバーが応答する</div>
-<div class="choice-line">【C】 CSSが要求し、HTMLが応答する</div>
-<div class="choice-line">【D】 画像が要求し、URLが応答する</div>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> サーバーが先に表示し、ブラウザが保存する</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> ブラウザが要求し、サーバーが応答する</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> CSSが要求し、HTMLが応答する</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 画像が要求し、URLが応答する</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
 <div class="answer">⭕ 正解【B】 ブラウザが要求し、サーバーが応答する</div>
 <div class="label">解説</div>
 <p>ブラウザがサーバーにリクエストを送り、サーバーがレスポンスを返します。</p>
 <div class="label caution">よくあるミス</div>
 <p>通信の向きを逆に考える。</p>
 <div class="label point">ポイント</div>
-<p>ブラウザ → リクエスト</p>
-<p>サーバー → レスポンス</p>
-<hr>
-<h1>CHANGELOG</h1>
-<h2>v5</h2>
-<ul>
-<li>HTMLコードを含む選択肢をコードブロック形式に変更</li>
-<li>エスケープ表記を避け、レビュー時の可読性を改善</li>
-<li>本問・実技・知識・復習・応用・宿題を全て完全記述</li>
-<li>各問に解説・よくあるミス・ポイントを記載</li>
-<li>正解分布と連続配置を確認</li>
-</ul>
-<hr>
-<h1>【チェックログ】</h1>
-<p>構成：OK</p>
-<p>問題数：OK</p>
-<p>本問：20問</p>
-<p>実技：3問</p>
-<p>知識：5問</p>
-<p>復習：5問</p>
-<p>応用：5問</p>
-<p>宿題復習：10問</p>
-<p>宿題アレンジ：5問</p>
-<p>宿題知識：5問</p>
-<div class="label">解説</div>
-<p>省略：なし</p>
-<p>本問分布：A=5 B=5 C=5 D=5</p>
-<p>授業内選択問題分布：A=9 B=10 C=8 D=8</p>
-<p>宿題選択問題分布：A=9 B=7 C=5 D=4</p>
-<p>連続：OK</p>
-<p>第1回対象必須項目：HTML構造 / 画像 / リンク / alt / href / src / 相対パス / ../：OK</p>
-<p>全10回必須項目：リスト / meta / table / form / color / display は第2回以降に配置予定</p>
-<p>ファイル名ルール：wd3_lesson1_v5.md</p>
-    </main>
-  </div>
+<p>ブラウザ → リクエスト</p><p>サーバー → レスポンス</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article></main>
+<div class="footer-note">回答後に「答えと解説を見る」で確認できます。</div>
+</div>
+<script>
+const cards = Array.from(document.querySelectorAll('.card'));
+const sectionOrder = ["本問", "実技", "知識", "復習", "応用", "宿題 復習", "宿題 アレンジ", "宿題 知識"];
+const sectionBtns = Array.from(document.querySelectorAll('.section-btn'));
+const state = { section: '本問', index: 0, answers: {} };
+
+function visibleCards(){ return cards.filter(c => c.dataset.section === state.section); }
+function sectionIndex(){ return sectionOrder.indexOf(state.section); }
+function scrollTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
+
+function update(){
+  const list = visibleCards();
+  cards.forEach(c => c.classList.remove('active'));
+  if (!list.length) return;
+  if (state.index < 0) state.index = 0;
+  if (state.index >= list.length) state.index = list.length - 1;
+  list[state.index].classList.add('active');
+  document.getElementById('currentSection').textContent = state.section;
+  document.getElementById('progress').textContent = `${state.index + 1}/${list.length}`;
+  document.getElementById('remaining').textContent = `残り ${list.length - state.index - 1}問`;
+  let correct=0, countable=0;
+  list.forEach(c => {
+    const id = c.querySelector('.qid')?.textContent || c.dataset.index;
+    if(c.dataset.answer){ countable++; if(state.answers[id] === c.dataset.answer) correct++; }
+  });
+  document.getElementById('score').textContent = `正答数 ${correct}/${countable}`;
+  const atGlobalFirst = sectionIndex() === 0 && state.index === 0;
+  const atGlobalLast = sectionIndex() === sectionOrder.length - 1 && state.index === list.length - 1;
+  document.getElementById('prevBtn').disabled = atGlobalFirst;
+  document.getElementById('nextBtn').disabled = atGlobalLast;
+  document.querySelectorAll('.bottom-prev').forEach(btn => btn.disabled = atGlobalFirst);
+  document.querySelectorAll('.bottom-next').forEach(btn => btn.disabled = atGlobalLast);
+  sectionBtns.forEach(b => b.classList.toggle('active', b.dataset.section === state.section));
+}
+
+function goNext(){
+  const list = visibleCards();
+  if(state.index < list.length - 1) state.index++;
+  else {
+    const si = sectionIndex();
+    if(si < sectionOrder.length - 1){ state.section = sectionOrder[si+1]; state.index = 0; }
+  }
+  update(); scrollTop();
+}
+function goPrev(){
+  if(state.index > 0) state.index--;
+  else {
+    const si = sectionIndex();
+    if(si > 0){ state.section = sectionOrder[si-1]; state.index = visibleCards().length - 1; }
+  }
+  update(); scrollTop();
+}
+
+sectionBtns.forEach(btn => btn.addEventListener('click', () => { state.section = btn.dataset.section; state.index = 0; update(); document.getElementById('sections').classList.remove('open'); scrollTop(); }));
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.querySelectorAll('.bottom-prev').forEach(btn => btn.addEventListener('click', goPrev));
+document.querySelectorAll('.bottom-next').forEach(btn => btn.addEventListener('click', goNext));
+document.getElementById('menuToggle').addEventListener('click', () => {
+  const el = document.getElementById('sections');
+  el.classList.toggle('open');
+  document.getElementById('menuToggle').textContent = el.classList.contains('open') ? 'セクション選択を閉じる' : 'セクション選択を開く';
+});
+document.querySelectorAll('.choice').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.card');
+    const id = card.querySelector('.qid')?.textContent || card.dataset.index;
+    const answer = card.dataset.answer;
+    const selected = btn.dataset.letter;
+    state.answers[id] = selected;
+    card.querySelectorAll('.choice').forEach(c => {
+      c.classList.remove('selected','correct','wrong');
+      if(c.dataset.letter === answer) c.classList.add('correct');
+    });
+    btn.classList.add('selected');
+    if(selected !== answer) btn.classList.add('wrong');
+    update();
+  });
+});
+update();
+</script>
 </body>
 </html>
