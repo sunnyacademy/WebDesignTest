@@ -1,0 +1,1364 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ウェブデザイン技能検定3級 第3回</title>
+<style>
+:root{--bg:#fffaf3;--paper:#fff;--ink:#263238;--line:#f0d9bd;--accent:#f59e0b;--accent-dark:#c2410c;--ok:#15803d;--ng:#dc2626;--warn:#b45309;--code-bg:#0f172a;--code-ink:#e5e7eb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","YuGothic","Noto Sans JP",sans-serif;line-height:1.7;color:var(--ink);background:linear-gradient(180deg,#fff7ed 0%,var(--bg) 100%);}
+.wrap{max-width:980px;margin:0 auto;padding:16px;}
+header{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(180,83,9,.08);position:sticky;top:8px;z-index:5;}
+h1{font-size:24px;margin:0 0 12px;color:#1f2937;}
+.menu-toggle{display:none;border:0;background:#334155;color:white;border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer;margin:6px 0 10px;width:100%;}
+.sections{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;}
+.section-btn{border:1px solid #fed7aa;background:#fff;color:var(--accent-dark);border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer;}
+.section-btn.active{background:var(--accent);color:white;border-color:var(--accent);}
+.status{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;}
+.status-box{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:6px 10px;font-weight:800;color:var(--accent-dark);}
+.nav{display:flex;gap:8px;}
+.nav button,.bottom-nav button{border:0;border-radius:999px;background:#334155;color:white;padding:10px 15px;font-weight:900;cursor:pointer;min-height:44px;}
+.nav button.primary,.bottom-nav button.primary{background:var(--accent);}
+.nav button:disabled,.bottom-nav button:disabled{opacity:.35;cursor:not-allowed;}
+.card{display:none;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 15px 40px rgba(180,83,9,.08);}
+.card.active{display:block;}
+.card-head{display:flex;gap:8px;align-items:center;margin-bottom:12px;}
+.pill{display:inline-block;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;color:var(--accent-dark);font-weight:800;padding:5px 10px;}
+.qid{font-weight:900;color:#334155;}
+.card p{font-size:18px;margin:10px 0;}
+.bullet{padding-left:1em}
+.subhead,.label{font-weight:900;color:var(--accent-dark);margin-top:14px;}
+.label.caution{color:var(--warn);}.label.point{color:#0369a1;}
+.choices{display:grid;gap:10px;margin:18px 0;}
+.choice{text-align:left;border:1px solid #fde7c7;background:#fffdf8;border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.6;cursor:pointer;}
+.choice:hover{border-color:var(--accent);background:#fff7ed;}
+.choice.selected{border-color:#334155;box-shadow:0 0 0 2px rgba(51,65,85,.15);}
+.card.revealed .choice.correct{border-color:var(--ok);background:#f0fdf4;}
+.card.revealed .choice.wrong{border-color:var(--ng);background:#fef2f2;}
+.code-block{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:14px;overflow-x:auto;border:1px solid #1e293b;margin:10px 0;}
+.code-block code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:15px;line-height:1.6;}
+.answer-detail{margin-top:16px;border:1px solid #bbf7d0;border-radius:14px;overflow:hidden;background:#f0fdf4;}
+.answer-detail summary{cursor:pointer;padding:12px 14px;font-weight:900;color:#166534;list-style:none;}
+.answer-detail summary::-webkit-details-marker{display:none;}.answer-detail summary::before{content:"＋";display:inline-block;width:1.4em;}.answer-detail[open] summary::before{content:"−";}
+.answer-body{border-top:1px solid #bbf7d0;background:white;padding:14px;}
+.answer{padding:10px 12px;border-left:6px solid var(--ok);background:#f0fdf4;border-radius:10px;font-weight:800;color:#166534;}
+.practice-input{width:100%;min-height:180px;border:1px solid #1e293b;border-radius:14px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:15px;line-height:1.6;background:#0f172a;color:#e5e7eb;}
+.practice-input::placeholder{color:#94a3b8;}
+.bottom-nav{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid #f0d9bd;}
+.bottom-nav button{flex:1;font-size:16px;}
+.footer-note{text-align:center;color:#64748b;padding:20px;}
+@media(max-width:700px){
+.wrap{padding:10px}header{position:static;padding:14px}h1{font-size:21px;line-height:1.35}
+.menu-toggle{display:block}
+.sections{display:none;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+.sections.open{display:grid}
+.section-btn{font-size:14px;padding:9px 10px}
+.status{display:block}.status-box{gap:6px}.badge{font-size:13px;padding:6px 9px}
+.nav{display:none}
+.card{padding:16px;margin-top:12px;border-radius:16px}.card p{font-size:17px;line-height:1.75}
+.choice{font-size:16px;padding:12px;min-height:48px}.answer-detail summary{font-size:16px;padding:13px}.answer-body{font-size:16px;line-height:1.8}
+.code-block{padding:10px}.code-block code{font-size:13px}.practice-input{font-size:16px;min-height:190px}
+.bottom-nav{position:sticky;bottom:0;background:#fff;padding:12px 0 6px;margin-left:-2px;margin-right:-2px;z-index:4}
+.bottom-nav button{font-size:16px;min-height:48px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>ウェブデザイン技能検定3級 第3回</h1>
+<button type="button" class="menu-toggle" id="menuToggle">セクション選択を開く</button>
+<div class="sections" id="sections"><button type="button" class="section-btn" data-section="本問">本問 <span>20</span></button>
+<button type="button" class="section-btn" data-section="実技">実技 <span>5</span></button>
+<button type="button" class="section-btn" data-section="復習">復習 <span>5</span></button>
+<button type="button" class="section-btn" data-section="応用">応用 <span>5</span></button>
+<button type="button" class="section-btn" data-section="知識">知識 <span>5</span></button>
+<button type="button" class="section-btn" data-section="宿題 復習">宿題 復習 <span>10</span></button>
+<button type="button" class="section-btn" data-section="宿題 アレンジ">宿題 アレンジ <span>5</span></button>
+<button type="button" class="section-btn" data-section="宿題 知識">宿題 知識 <span>5</span></button></div>
+<div class="status">
+<div class="status-box">
+<span class="badge" id="currentSection">本問</span>
+<span class="badge" id="progress">1/20</span>
+<span class="badge" id="remaining">残り 19問</span>
+<span class="badge" id="score">正答数 0/20</span>
+</div>
+<div class="nav">
+<button type="button" id="prevBtn">前へ</button>
+<button type="button" id="nextBtn" class="primary">次へ</button>
+</div>
+</div>
+</header>
+<main id="cards"><article class="card" data-index="0" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q01</span></div>
+<p>枠線を表示するCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>line</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>frame</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>border</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>flex</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p><code>border</code> は要素の枠線を指定するCSSプロパティです。太さ、線の種類、色をまとめて指定できます。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>line</code> や <code>frame</code> はそれっぽく見えますが、CSSで枠線を指定する正式なプロパティは <code>border</code> です。</p>
+<div class="label point">ポイント</div>
+<p>border = 箱の枠線。授業では「どこまでが箱か」を見えるようにするためにも使います。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="1" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q02</span></div>
+<p>背景色を指定するCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>background-color</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>text-color</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>box-color</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>color-background</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p><code>background-color</code> は要素の背景色を指定するCSSプロパティです。</p>
+<div class="label caution">よくあるミス</div>
+<p>文字色を指定する <code>color</code> と混同しやすい。</p>
+<div class="label point">ポイント</div>
+<p>background-color = 背景色。color = 文字色。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="2" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q03</span></div>
+<p>要素の角を丸くするCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>corner</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>round-border</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>border-round</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>border-radius</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p><code>border-radius</code> は要素の角を丸くするCSSプロパティです。ボタンやカードの角丸によく使います。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>border</code> と同じく枠線そのものを指定するものだと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>radius = 半径。border-radius = 角丸。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="3" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q04</span></div>
+<p>要素に影をつけるCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>shadow-box</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>box-shadow</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>border-shadow</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>drop-border</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p><code>box-shadow</code> は要素に影をつけるCSSプロパティです。箱が浮き上がって見える表現に使います。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>shadow-box</code> のように英語の順番を逆にしてしまう。</p>
+<div class="label point">ポイント</div>
+<p>box-shadow = 箱の影。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="4" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q05</span></div>
+<p>文字やインライン要素など、中身を中央揃えにするCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>margin: 0 auto;</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>align: center;</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>text-align: center;</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>center: true;</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p><code>text-align: center;</code> は、テキストやインライン要素など、要素の中身を中央に揃える指定です。</p>
+<div class="label caution">よくあるミス</div>
+<p>要素そのものが中央に移動すると勘違いしやすい。</p>
+<div class="label point">ポイント</div>
+<p>text-align = 中身を揃える。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="5" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q06</span></div>
+<p>幅が指定されたブロック要素そのものを横方向中央に配置するCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>text-align: center;</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>display: center;</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>center-block: true;</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>margin: 0 auto;</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p><code>margin: 0 auto;</code> は左右の余白を自動調整する指定です。幅が指定されたブロック要素では左右の余白が均等になり、要素そのものが中央に配置されます。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>text-align: center;</code> で箱そのものも中央に動くと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>margin auto = 箱を中央へ。ただし width が必要。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="6" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q07</span></div>
+<p>要素の幅を指定するCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>wide</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>width</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>box-size</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>size-x</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p><code>width</code> は要素の横幅を指定するCSSプロパティです。中央寄せやレイアウト調整でよく使います。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>wide</code> のような英単語そのものを選んでしまう。</p>
+<div class="label point">ポイント</div>
+<p>width = 幅。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="7" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q08</span></div>
+<p>要素の高さを指定するCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>height</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>high</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>size-y</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>box-height-auto</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p><code>height</code> は要素の高さを指定するCSSプロパティです。ただし実際のWeb制作では内容量に合わせて自然に高さが決まることも多いです。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>high</code> のような英単語と混同しやすい。</p>
+<div class="label point">ポイント</div>
+<p>height = 高さ。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="8" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q09</span></div>
+<p>要素の内側に余白を作るCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>margin</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>border</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>padding</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>spacing</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p><code>padding</code> は要素の中身と枠線の間にできる内側の余白です。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>margin</code> と逆に覚えてしまう。</p>
+<div class="label point">ポイント</div>
+<p>padding = 内側余白。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="9" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q10</span></div>
+<p>要素の外側に余白を作るCSSプロパティはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>padding</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>margin</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>border</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>inner-space</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p><code>margin</code> は要素の外側に余白を作るCSSプロパティです。他の要素との距離を調整するときに使います。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>padding</code> と混同して、内側余白だと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>margin = 外側余白。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="10" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q11</span></div>
+<p>1行を使う箱として扱われ、前後で改行されやすいdisplayはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>inline</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>none</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>flex</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>block</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p><code>display: block;</code> は、要素をブロックとして扱う指定です。基本的に横幅いっぱいに広がり、前後で改行されます。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>flex</code> と混同して横並びの指定だと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>block = 1行を使う箱。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="11" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q12</span></div>
+<p>文章の一部のように扱われ、横に並びやすいdisplayはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>inline</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>block</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>grid</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>none</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p><code>display: inline;</code> は、文章の一部のように横に並ぶ表示方法です。代表例として <code>a</code> 要素があります。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>block</code> と逆に覚えてしまう。</p>
+<div class="label point">ポイント</div>
+<p>inline = 行の中。文字っぽい動き。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="12" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q13</span></div>
+<p>横に並びつつ、幅や高さも指定しやすいdisplayはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>inline</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>block</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>inline-block</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>none</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p><code>inline-block</code> は、インライン要素のように横に並びながら、ブロック要素のように幅や高さを指定しやすい表示方法です。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>inline</code> と同じだと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>inline-block = 横並び + サイズ指定。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="13" data-section="本問" data-answer="D">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q14</span></div>
+<p>代表的なブロック要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>a</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>span</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>img</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>div</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p><code>div</code> は代表的なブロック要素です。グループ分けやレイアウトの箱としてよく使います。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>span</code> と同じような役割だと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>div = 箱。span = 文章の一部。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="14" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q15</span></div>
+<p>代表的なインライン要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>a</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>div</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>section</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>p</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p><code>a</code> は代表的なインライン要素です。リンクとして文章の中に自然に入るため、横に並びやすい特徴があります。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>div</code> と同じように幅や高さが効く箱だと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>a = インライン要素の代表例。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="15" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q16</span></div>
+<p>inline要素に <code>width: 300px;</code> を指定した場合の説明として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 必ず300pxの幅になる</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> widthは基本的に効きにくい</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 要素が非表示になる</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 背景色だけ300pxになる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>通常のインライン要素は文字の流れの中で扱われるため、<code>width</code> や <code>height</code> が効きにくい特徴があります。</p>
+<div class="label caution">よくあるミス</div>
+<p>どの要素にも同じようにwidthが効くと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>inline = 文字扱い。widthは箱に効く。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="16" data-section="本問" data-answer="A">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q17</span></div>
+<p>inline要素で <code>padding</code> を大きくしたときに起きやすい現象はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 周囲の要素と重なって見えることがある</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 必ず改行される</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 要素が消える</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 角丸になる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p>インライン要素にも <code>padding</code> は指定できますが、行の高さや周囲との関係によっては重なって見えることがあります。</p>
+<div class="label caution">よくあるミス</div>
+<p>ブロック要素とまったく同じように余白が確保されると思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>inlineのpaddingは見た目に注意。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="17" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q18</span></div>
+<p><code>margin: 0 auto;</code> を使って中央寄せするために必要な条件として適切なものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 文字色が指定されている</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 背景色が指定されている</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 幅が指定されている</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 影が指定されている</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p><code>margin: 0 auto;</code> は左右の余白を自動調整する指定です。そのため、中央寄せしたい要素に幅が指定されている必要があります。</p>
+<div class="label caution">よくあるミス</div>
+<p>marginだけ書けば必ず中央に寄ると思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>中央寄せ = width + margin auto。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="18" data-section="本問" data-answer="B">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q19</span></div>
+<p><code>display: none;</code> の説明として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 要素は見えないが場所は残る</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 要素が表示されず、場所も取らない</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 要素が透明になるだけ</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 要素が横並びになる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p><code>display: none;</code> は要素を表示せず、レイアウト上の場所も取りません。</p>
+<div class="label caution">よくあるミス</div>
+<p><code>visibility: hidden;</code> と同じだと思ってしまう。</p>
+<div class="label point">ポイント</div>
+<p>display:none = 表示も場所も消える。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="19" data-section="本問" data-answer="C">
+<div class="card-head"><span class="pill">本問</span><span class="qid">Q20</span></div>
+<p>CSSのボックスモデルの構成として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> HTML・CSS・JavaScript・画像</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> header・main・footer・nav</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> content・padding・border・margin</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> id・class・href・src</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>CSSのボックスモデルでは、要素は内容領域、padding、border、marginで構成されます。</p>
+<div class="label caution">よくあるミス</div>
+<p>HTMLの構造や属性と混同してしまう。</p>
+<div class="label point">ポイント</div>
+<p>中身 → padding → border → margin。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="20" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P01</span></div>
+<p>border と background-color</p>
+<p>次の条件を満たす <code>.box</code> を作成しなさい。</p>
+<p class="bullet">- 幅300px</p>
+<p class="bullet">- オレンジ色の枠線</p>
+<p class="bullet">- 水色の背景色</p>
+<p class="bullet">- 中の文字は「BOX」</p>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>&lt;div class=&quot;box&quot;&gt;
+  BOX
+&lt;/div&gt;</code></pre>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>.box{
+
+}</code></pre>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正答例</div>
+<pre class="code-block"><code>.box{
+  width:300px;
+  border:3px solid orange;
+  background-color:skyblue;
+}</code></pre>
+<div class="label">解説</div>
+<p>border は箱を見えるようにし、background-color は箱の範囲を確認しやすくします。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="21" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P02</span></div>
+<p>text-align と margin auto</p>
+<p>次の条件を満たす <code>.box</code> を作成しなさい。</p>
+<p class="bullet">- 幅300px</p>
+<p class="bullet">- border を付ける</p>
+<p class="bullet">- 箱そのものを中央寄せ</p>
+<p class="bullet">- 文字も中央寄せ</p>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>&lt;div class=&quot;box&quot;&gt;
+  CENTER
+&lt;/div&gt;</code></pre>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>.box{
+
+}</code></pre>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正答例</div>
+<pre class="code-block"><code>.box{
+  width:300px;
+  border:3px solid orange;
+  margin:0 auto;
+  text-align:center;
+}</code></pre>
+<div class="label">解説</div>
+<p>margin auto は箱を中央へ移動し、text-align は中身を中央へ揃えます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="22" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P03</span></div>
+<p>inline-block</p>
+<p>次の条件を満たすリンクボタンを作成しなさい。</p>
+<p class="bullet">- 横並び</p>
+<p class="bullet">- 幅200px</p>
+<p class="bullet">- padding 20px</p>
+<p class="bullet">- 枠線あり</p>
+<p class="bullet">- display を使う</p>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>&lt;a href=&quot;#&quot;&gt;ボタン1&lt;/a&gt;
+&lt;a href=&quot;#&quot;&gt;ボタン2&lt;/a&gt;</code></pre>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>a{
+
+}</code></pre>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正答例</div>
+<pre class="code-block"><code>a{
+  display:inline-block;
+  width:200px;
+  padding:20px;
+  border:2px solid blue;
+}</code></pre>
+<div class="label">解説</div>
+<p>a は通常 inline要素です。inline-block を使うことで、横並びとサイズ指定を両立できます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="23" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P04</span></div>
+<p>display:none と visibility:hidden</p>
+<p>次の2つのクラスを作成しなさい。</p>
+<p class="bullet">- <code>.hide1</code>：要素も場所も消す</p>
+<p class="bullet">- <code>.hide2</code>：見えなくするが場所は残す</p>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>&lt;div class=&quot;hide1&quot;&gt;BOX1&lt;/div&gt;
+&lt;div class=&quot;hide2&quot;&gt;BOX2&lt;/div&gt;</code></pre>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>.hide1{
+
+}
+
+.hide2{
+
+}</code></pre>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正答例</div>
+<pre class="code-block"><code>.hide1{
+  display:none;
+}
+
+.hide2{
+  visibility:hidden;
+}</code></pre>
+<div class="label">解説</div>
+<p>display:none は表示も場所も消えます。visibility:hidden は見えませんが場所は残ります。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="24" data-section="実技" data-answer="">
+<div class="card-head"><span class="pill">実技</span><span class="qid">P05</span></div>
+<p>box model を確認する</p>
+<p>次の条件を満たす <code>.box</code> を作成しなさい。</p>
+<p class="bullet">- width 300px</p>
+<p class="bullet">- padding 30px</p>
+<p class="bullet">- border 5px</p>
+<p class="bullet">- margin 40px</p>
+<p class="bullet">- background-color を付ける</p>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>&lt;div class=&quot;box&quot;&gt;
+  BOX MODEL
+&lt;/div&gt;</code></pre>
+<div class="subhead">初期コード</div>
+<pre class="code-block"><code>.box{
+
+}</code></pre>
+<div class="subhead">入力欄</div>
+<textarea class="practice-input" spellcheck="false" placeholder="ここにコードを入力"></textarea>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正答例</div>
+<pre class="code-block"><code>.box{
+  width:300px;
+  padding:30px;
+  border:5px solid orange;
+  margin:40px;
+  background-color:skyblue;
+}</code></pre>
+<div class="label">解説</div>
+<p>外側から margin → border → padding → content の順で確認します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="25" data-section="復習" data-answer="C">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R01</span></div>
+<p><code>text-align:center;</code> が中央揃えする対象はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> border</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 要素そのもの</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 中身</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> margin</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>text-align は中身を中央に揃えます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="26" data-section="復習" data-answer="A">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R02</span></div>
+<p><code>margin:0 auto;</code> が中央揃えする対象はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 箱そのもの</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 文字色</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 背景色</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> border</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p>margin auto は箱を中央へ移動します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="27" data-section="復習" data-answer="C">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R03</span></div>
+<p>代表的な block 要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>a</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>span</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>div</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>img</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>div は代表的な block 要素です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="28" data-section="復習" data-answer="D">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R04</span></div>
+<p>代表的な inline 要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>div</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>section</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>p</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>a</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p>a は代表的な inline 要素です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="29" data-section="復習" data-answer="A">
+<div class="card-head"><span class="pill">復習</span><span class="qid">R05</span></div>
+<p>横並びしつつ width も使いやすい display はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>inline-block</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>inline</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>none</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>grid</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p>inline-block は inline と block の特徴を両方持ちます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="30" data-section="応用" data-answer="B">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B01</span></div>
+<p>次のCSSを指定した場合、中央寄せされるものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 文字</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 箱</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> borderだけ</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> paddingだけ</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>margin auto は箱を中央寄せします。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="31" data-section="応用" data-answer="C">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B02</span></div>
+<p>次のうち、width が効きにくい要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>div</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>section</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>a</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>p</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>a は inline 要素なので width が効きにくいです。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="32" data-section="応用" data-answer="B">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B03</span></div>
+<p>次のCSSを追加したときの変化として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 横並びになる</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 改行される</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 非表示になる</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 透明になる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>block は1行を使う表示方法です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="33" data-section="応用" data-answer="D">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B04</span></div>
+<p>次のCSSを追加したときの変化として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 要素が中央寄せになる</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 角丸になる</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 要素は見えないが場所は残る</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 要素も場所も消える</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p>display:none は表示も場所も消えます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="34" data-section="応用" data-answer="C">
+<div class="card-head"><span class="pill">応用</span><span class="qid">B05</span></div>
+<p>次の説明として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> padding は外側余白</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> margin は内側余白</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> padding は内側余白</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> border は余白</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>padding = 内側余白、margin = 外側余白です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="35" data-section="知識" data-answer="B">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K01</span></div>
+<p>Webページの場所を表すものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> HTML</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> URL</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> CSS</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> PNG</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>URL はWebページやファイルの場所を表します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="36" data-section="知識" data-answer="C">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K02</span></div>
+<p>1つ上の階層へ移動する相対パスはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>./</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>//</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>../</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>/root</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p><code>../</code> は1つ上の階層を表します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="37" data-section="知識" data-answer="A">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K03</span></div>
+<p>現在のフォルダを表す相対パスはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>./</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>../</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>//</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>/index</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p><code>./</code> は現在のフォルダを表します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="38" data-section="知識" data-answer="B">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K04</span></div>
+<p>Webサイトを高速表示するため、一時保存を行う仕組みはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Cookie</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Cache</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> Session</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> URL</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>Cache は画像やデータを一時保存する仕組みです。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="39" data-section="知識" data-answer="A">
+<div class="card-head"><span class="pill">知識</span><span class="qid">K05</span></div>
+<p>ログイン情報などを保存する仕組みとして使われるものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Cookie</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> URL</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> HTML</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> margin</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p>Cookie はログイン状態などを保存する仕組みです。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="40" data-section="宿題 復習" data-answer="B">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR01</span></div>
+<p>枠線を指定するCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>frame</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>border</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>line</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>shadow</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>border は枠線を指定します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="41" data-section="宿題 復習" data-answer="B">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR02</span></div>
+<p>背景色を指定するCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>color-box</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>background-color</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>bg</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>font-color</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>background-color は背景色を指定します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="42" data-section="宿題 復習" data-answer="A">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR03</span></div>
+<p>文字を中央寄せするCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>text-align:center;</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>margin:auto;</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>display:block;</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>padding:0 auto;</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p>text-align は中身を中央寄せします。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="43" data-section="宿題 復習" data-answer="C">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR04</span></div>
+<p>箱そのものを中央寄せするCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>text-align:center;</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>center:block;</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>margin:0 auto;</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>align:center;</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>margin:0 auto は幅のある箱を中央寄せします。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="44" data-section="宿題 復習" data-answer="A">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR05</span></div>
+<p>内側余白を指定するCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>padding</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>margin</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>border</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>inside</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p>padding は内側余白です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="45" data-section="宿題 復習" data-answer="B">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR06</span></div>
+<p>外側余白を指定するCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>padding</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>margin</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>space</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>border</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>margin は外側余白です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="46" data-section="宿題 復習" data-answer="C">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR07</span></div>
+<p>block 要素の特徴として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 横並びになる</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> width が効かない</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 改行される</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 文字扱いになる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>block 要素は前後で改行されやすいです。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="47" data-section="宿題 復習" data-answer="D">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR08</span></div>
+<p>inline 要素の特徴として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 改行されやすい</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> width が必ず効く</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 1行を使う</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 横並びになりやすい</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p>inline 要素は横並びになりやすいです。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="48" data-section="宿題 復習" data-answer="C">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR09</span></div>
+<p>横並びしつつ width も使える display はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>inline</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>block</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>inline-block</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>none</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>inline-block は横並びとサイズ指定を両立します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="49" data-section="宿題 復習" data-answer="B">
+<div class="card-head"><span class="pill">宿題 復習</span><span class="qid">HR10</span></div>
+<p>display:none; の説明として正しいものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> 中央寄せになる</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> 要素も場所も消える</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> 透明になる</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> 横並びになる</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>display:none は表示も場所も消えます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="50" data-section="宿題 アレンジ" data-answer="B">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA01</span></div>
+<p>角丸を指定するCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>round-border</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>border-radius</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>corner</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>radius-box</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>border-radius は角丸を指定します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="51" data-section="宿題 アレンジ" data-answer="C">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA02</span></div>
+<p>影を付けるCSSはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>shadow-box</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>border-shadow</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>box-shadow</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>drop-shadow-box</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>box-shadow は影を付けます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="52" data-section="宿題 アレンジ" data-answer="D">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA03</span></div>
+<p>次のうち inline 要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>div</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>section</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>p</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>a</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p>a は代表的な inline 要素です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="53" data-section="宿題 アレンジ" data-answer="C">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA04</span></div>
+<p>次のうち block 要素はどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>a</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>span</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>div</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>img</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>div は代表的な block 要素です。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="54" data-section="宿題 アレンジ" data-answer="D">
+<div class="card-head"><span class="pill">宿題 アレンジ</span><span class="qid">HA05</span></div>
+<p>次のうち box model に含まれるものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> URL</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Cookie</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> JavaScript</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> padding</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【D】</div>
+<div class="label">解説</div>
+<p>padding は box model に含まれます。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="55" data-section="宿題 知識" data-answer="C">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK01</span></div>
+<p>Webページの場所を表すものはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> CSS</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> HTML</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> URL</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> Cookie</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【C】</div>
+<div class="label">解説</div>
+<p>URL はWebページやファイルの場所を表します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="56" data-section="宿題 知識" data-answer="B">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK02</span></div>
+<p>1つ上の階層を表す相対パスはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>./</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>../</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>//</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>/top</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p><code>../</code> は1つ上の階層を表します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="57" data-section="宿題 知識" data-answer="A">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK03</span></div>
+<p>現在のフォルダを表す相対パスはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> <code>./</code></button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> <code>../</code></button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> <code>/root</code></button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> <code>//</code></button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【A】</div>
+<div class="label">解説</div>
+<p><code>./</code> は現在のフォルダを表します。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="58" data-section="宿題 知識" data-answer="B">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK04</span></div>
+<p>一時保存によってWeb表示を高速化する仕組みはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Cookie</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Cache</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> URL</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> Session</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>Cache は一時保存によって表示を速くします。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article><article class="card" data-index="59" data-section="宿題 知識" data-answer="B">
+<div class="card-head"><span class="pill">宿題 知識</span><span class="qid">HK05</span></div>
+<p>ログイン情報などを保存する仕組みはどれか</p>
+<div class="choices">
+<button type="button" class="choice" data-letter="A"><strong>【A】</strong> Cache</button>
+<button type="button" class="choice" data-letter="B"><strong>【B】</strong> Cookie</button>
+<button type="button" class="choice" data-letter="C"><strong>【C】</strong> HTML</button>
+<button type="button" class="choice" data-letter="D"><strong>【D】</strong> border</button>
+</div>
+<details class="answer-detail">
+<summary>答えと解説を見る</summary>
+<div class="answer-body">
+<div class="answer">正解【B】</div>
+<div class="label">解説</div>
+<p>Cookie はログイン状態などを保存する仕組みです。</p>
+</div></details>
+<div class="bottom-nav"><button type="button" class="bottom-prev">前へ</button><button type="button" class="bottom-next primary">次へ</button></div>
+</article></main>
+<div class="footer-note">選択肢を選んだあと、「答えと解説を見る」を開くと正誤が表示されます。</div>
+</div>
+<script>
+const cards = Array.from(document.querySelectorAll('.card'));
+const sectionOrder = ["本問", "実技", "復習", "応用", "知識", "宿題 復習", "宿題 アレンジ", "宿題 知識"];
+const sectionBtns = Array.from(document.querySelectorAll('.section-btn'));
+const state = { section: '本問', index: 0, answers: {} };
+function visibleCards(){ return cards.filter(c => c.dataset.section === state.section); }
+function sectionIndex(){ return sectionOrder.indexOf(state.section); }
+function scrollTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
+function update(){
+  const list = visibleCards();
+  cards.forEach(c => c.classList.remove('active'));
+  if(!list.length) return;
+  if(state.index < 0) state.index = 0;
+  if(state.index >= list.length) state.index = list.length - 1;
+  list[state.index].classList.add('active');
+  document.getElementById('currentSection').textContent = state.section;
+  document.getElementById('progress').textContent = `${state.index+1}/${list.length}`;
+  document.getElementById('remaining').textContent = `残り ${list.length-state.index-1}問`;
+  let correct=0,countable=0;
+  list.forEach(c=>{
+    const id=c.querySelector('.qid')?.textContent || c.dataset.index;
+    if(c.dataset.answer){countable++; if(state.answers[id]===c.dataset.answer) correct++;}
+  });
+  document.getElementById('score').textContent = `正答数 ${correct}/${countable}`;
+  const atFirst = sectionIndex()===0 && state.index===0;
+  const atLast = sectionIndex()===sectionOrder.length-1 && state.index===list.length-1;
+  document.getElementById('prevBtn').disabled = atFirst;
+  document.getElementById('nextBtn').disabled = atLast;
+  document.querySelectorAll('.bottom-prev').forEach(btn=>btn.disabled=atFirst);
+  document.querySelectorAll('.bottom-next').forEach(btn=>btn.disabled=atLast);
+  sectionBtns.forEach(b=>b.classList.toggle('active', b.dataset.section===state.section));
+}
+function goNext(){
+  const list=visibleCards();
+  if(state.index < list.length-1) state.index++;
+  else {
+    const si=sectionIndex();
+    if(si<sectionOrder.length-1){state.section=sectionOrder[si+1]; state.index=0;}
+  }
+  update(); scrollTop();
+}
+function goPrev(){
+  if(state.index>0) state.index--;
+  else {
+    const si=sectionIndex();
+    if(si>0){state.section=sectionOrder[si-1]; state.index=visibleCards().length-1;}
+  }
+  update(); scrollTop();
+}
+sectionBtns.forEach(btn=>btn.addEventListener('click',()=>{state.section=btn.dataset.section; state.index=0; update(); document.getElementById('sections').classList.remove('open'); scrollTop();}));
+document.getElementById('prevBtn').addEventListener('click', goPrev);
+document.getElementById('nextBtn').addEventListener('click', goNext);
+document.querySelectorAll('.bottom-prev').forEach(btn=>btn.addEventListener('click', goPrev));
+document.querySelectorAll('.bottom-next').forEach(btn=>btn.addEventListener('click', goNext));
+document.getElementById('menuToggle').addEventListener('click',()=>{
+  const el=document.getElementById('sections');
+  el.classList.toggle('open');
+  document.getElementById('menuToggle').textContent = el.classList.contains('open') ? 'セクション選択を閉じる' : 'セクション選択を開く';
+});
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const card=btn.closest('.card');
+    const id=card.querySelector('.qid')?.textContent || card.dataset.index;
+    const answer=card.dataset.answer;
+    const selected=btn.dataset.letter;
+    state.answers[id]=selected;
+    card.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected','correct','wrong'));
+    btn.classList.add('selected');
+    update();
+  });
+});
+document.querySelectorAll('.answer-detail').forEach(detail=>{
+  detail.addEventListener('toggle',()=>{
+    const card=detail.closest('.card');
+    if(detail.open){
+      const id=card.querySelector('.qid')?.textContent || card.dataset.index;
+      const answer=card.dataset.answer;
+      card.classList.add('revealed');
+      card.querySelectorAll('.choice').forEach(c=>{
+        c.classList.remove('correct','wrong');
+        if(c.dataset.letter===answer) c.classList.add('correct');
+        if(state.answers[id] && c.dataset.letter===state.answers[id] && c.dataset.letter!==answer) c.classList.add('wrong');
+      });
+    }
+  });
+});
+update();
+</script>
+</body>
+</html>
